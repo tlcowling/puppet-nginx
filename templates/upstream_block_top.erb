@@ -1,0 +1,7 @@
+upstream <%= @name %> {
+  <%- @method = "" if @method == 'round-robin' -%>
+  <%- components = [@method] + [@method_attribute] -%>
+  <%- line = components.reject(&:empty?).join(" ") -%>
+  <%- if line != '' -%>
+  <%= line %>;
+  <%- end -%>

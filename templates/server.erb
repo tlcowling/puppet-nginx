@@ -1,0 +1,16 @@
+<%- if @zone != "" -%>
+  zone <%= @zone %>;
+<%- end -%>
+<%- if @proxy_buffer_size != "" -%>
+  proxy_buffer_size = <%= @proxy_buffer_size %>;
+<%- end -%>
+  listen <%= @port %>;
+  proxy_pass <%= @upstream %>;
+<%- if @proxy_bind != "" -%>
+  proxy_bind <%= @proxy_bind %>;
+<%- end -%>
+<%- if @access_control_lists != [] -%>
+  <%- @access_control_lists.each { |acl| -%>
+  include 'acls/<%= acl %>';
+  <%- } -%>
+<%- end -%>

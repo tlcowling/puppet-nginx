@@ -1,0 +1,5 @@
+<%- @actions.each do |action, ip_list| -%>
+<%-   ip_list.each do |ip_address| -%>
+<%= action %> <%= ip_address %>;
+<%-   end -%>
+<%- end -%>

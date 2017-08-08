@@ -1,0 +1,52 @@
+---
+# Define upstreams that can be referred to later on
+upstreams:
+  webapp02: 
+    method: least_conn
+    servers: 
+      - address: localhost:12345
+        weight: "5"
+        max_conns: "3"
+        max_fails: "2"
+        fail_timeout: "30s"
+      - address: localhost:12346
+  webapp01:
+    servers:
+      - address: localhost:1552
+      - address: localhost:1551
+      - address: localhost:1550
+
+# Define streams and tell them which upstreams to point to
+streams:
+  test_balancer:
+    protocol: tcp
+    port: 12345
+    upstream: webapp01
+    access_control_lists:
+      - allow_tcow_net
+      - allow_mega_corp
+  test_balancer2: 
+    protocol: tcp
+    port: 10987
+    upstream: webapp01
+    access_control_lists:
+      - deny_evil_corp
+
+# Define a set of access_control_lists that can be assigned to
+# streams.
+access_control_lists:
+  allow_tcow_net:
+    allow:
+      - 54.3.4.2
+      - 1.2.3.4
+      - 32.4.3.2
+    deny:
+      - all
+  deny_evil_corp:
+    deny:
+      - 4.5.3.1
+      - 3.2.5.6
+  allow_mega_corp:
+    allow:
+      - 1.3.6.3
+      - 2.3.4.5

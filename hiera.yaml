@@ -1,0 +1,6 @@
+:backends:
+  - yaml
+:yaml:
+  :datadir: "/etc/puppetlabs/code/modules/nginx/hieradata"
+:hierarchy:
+  - test
