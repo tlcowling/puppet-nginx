@@ -11,10 +11,10 @@ upstreams:
     method: least_conn
     servers: 
       - address: localhost:12345
-        weight: "5"
-        max_conns: "3"
-        max_fails: "2"
-        fail_timeout: "30s"
+        weight: 5
+        max_conns: 3
+        max_fails: 2
+        fail_timeout: 30s
       - address: localhost:12346
   webapp01:
     servers:

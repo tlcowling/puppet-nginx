@@ -16,3 +16,4 @@
 - Bug #10: There is no group attribute in the nginx config - remove it
 - #11 Make config work even if user provides no hiera
 - #12 Document all the config params
+- Bug #13 make the streams take integer or string

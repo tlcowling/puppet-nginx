@@ -3,7 +3,7 @@ notice("CONFIG:")
 if $config {
   notice('using config from hiera')
   class { 'nginx::config':
-    
+    user => $config['user'],    
 
   }
 } else {
