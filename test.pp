@@ -1,13 +1,16 @@
 $config = lookup('config')
-notice("CONFIG:")
 if $config {
-  notice('using config from hiera')
+  notice('using hiera config:')
+  notice($config)
   class { 'nginx::config':
-    user => $config['user'],    
-
+    user             => $config['user'],
+    group            => $config['group'],
+    pid              => $config['pid'],
+    worker_processes => $config['worker_processes'],
+    base_directory   => $config['base_directory'],
   }
 } else {
-  notice('using default hiera config')
+  notice('using default config')
   include nginx::config
 }
 
