@@ -10,8 +10,11 @@ define nginx::access_control_list (
   }
 }
 
-class nginx::access_control_lists {
+class nginx::access_control_lists inherits nginx::config{
   file { '/etc/nginx/acls':
+    owner  => $user,
+    group  => $group,
+    mode   => '0750',
     ensure => 'directory',
   }
   

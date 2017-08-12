@@ -1,0 +1,14 @@
+- #1 config with all options
+  - can manage the full nginx config
+- #2 proper treatment of logs and logtype
+  - maybe a log formats subdir
+- #3 proper treatment of error pages
+- #4 purge non managed config directories
+- #5 mime types
+- #6 Server blocks
+- #7 with location
+- Bug: Make sure deny all is default
+- #8 multiple oses
+  - ubuntu 10,12,14,16
+  - centos 6,7
+  - debian 8

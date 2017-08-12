@@ -1,12 +1,11 @@
-class nginx::streams {
-  file { '/etc/nginx':
-    ensure => 'directory',
-  }->
-  file { '/etc/nginx/nginx.conf':
-    ensure => 'file',  
-    content => "stream {\n  include 'streams.d/*';\n}"
-  }->
+class nginx::streams (
+
+) inherits nginx::config {
+
   file { '/etc/nginx/streams.d':
+    owner  => $user,
+    group  => $group,
+    mode   => '0755',
     ensure => 'directory',
   }
   
