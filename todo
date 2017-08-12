@@ -7,8 +7,10 @@
 - #5 mime types
 - #6 Server blocks
 - #7 with location
-- Bug: Make sure deny all is default
+- Bug #11: Make sure deny all is default
 - #8 multiple oses
   - ubuntu 10,12,14,16
   - centos 6,7
   - debian 8
+- #9 perform a config check after a config change
+- Bug #10: There is no group attribute in the nginx config - remove it
