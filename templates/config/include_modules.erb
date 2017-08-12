@@ -1,0 +1,5 @@
+<%- if @load_modules -%>
+  <%- @load_modules.each do |m| -%>
+load_module <%= m %>;
+  <%- end -%>
+<%- end -%>

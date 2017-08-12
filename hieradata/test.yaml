@@ -3,6 +3,7 @@
 config:
   user: nginx
   worker_processes: 1
+  worker_shutdown_timeout: 30s
   daemon: on
   thread_pools:
     bob:
@@ -11,6 +12,9 @@ config:
     bob2:
       threads: 100
       max_queue: 1003
+  lock_file: giblets.lock
+  master_process: off
+  pcre_jit: off
 
 
 # Define upstreams that can be referred to later on

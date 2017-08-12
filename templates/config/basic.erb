@@ -1,11 +1,22 @@
 <%- nginx_config_user_line = [@user, @group].reject{|x| x.nil? || x.empty? }.join(" ") -%>
 user <%= nginx_config_user_line %>;
 pid <%= @pid %>;
-worker_processes <%= @worker_processes %>;
 <%- if @daemon && @daemon != 'off' -%>
 daemon on;
 <%- else -%>
 daemon off;
 <%- end -%>
-
-
+<%- if @lock_file -%>
+lock_file <%= @lock_file %>;
+<%- end -%>
+<%- if @pcre_jit && @pcre_jit != 'off' -%>
+pcre_jit on;
+<%- else -%>
+pcre_jit off;
+<%- end -%>
+<%- if @timer_resolution -%>
+timer_resolution <%= @timer_resolution %>;
+<%- end -%>
+<%- if @ssl_engine -%>
+ssl_engine <%= @ssl_engine %>;
+<%- end -%>

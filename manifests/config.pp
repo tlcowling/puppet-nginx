@@ -19,6 +19,7 @@ class nginx::config (
   Optional[String]                             $worker_shutdown_timeout = undef,
   Optional[String]                             $worker_directory = undef,
   Optional[Array[String]]                      $include = undef,
+  Optional[Array[String]]                      $load_modules = undef,
 ) {
   validate_absolute_path($base_directory)
 
@@ -71,9 +72,9 @@ class nginx::config (
     order   => '01',
   }
 
-  concat::fragment { 'nginx_config_include_events':
+  concat::fragment { 'nginx_config_include_workers':
     target  => 'nginx_config',
-    content => 'events {}',
+    content => template('nginx/config/worker.erb'),
     order   => '02',
   }
 
@@ -82,4 +83,29 @@ class nginx::config (
     content => template('nginx/config/thread_pools.erb'),
     order   => '03',
   }
+
+  concat::fragment { 'nginx_config_include_debug_points':
+    target  => 'nginx_config',
+    content => template('nginx/config/debug.erb'),
+    order   => '04',
+  }
+
+  concat::fragment { 'nginx_config_include_modules':
+    target  => 'nginx_config',
+    content => template('nginx/config/include_modules.erb'),
+    order   => '05',
+  }
+
+  concat::fragment { 'nginx_config_include_includes':
+    target  => 'nginx_config',
+    content => template('nginx/config/includes.erb'),
+    order   => '06',
+  }
+
+  concat::fragment {'nginx_config_events':
+   target  => 'nginx_config',
+    content => 'events{}',
+    order   => '07',
+   }
+  
 }

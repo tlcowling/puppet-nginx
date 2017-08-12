@@ -1,0 +1,25 @@
+worker_processes <%= @worker_processes %>;
+<%- if @worker_priority -%>
+worker_priority <%= @worker_priority %>;
+<%- end -%>
+<%- if @worker_shutdown_timeout -%>
+worker_shutdown_timeout <%= @worker_shutdown_timeout %>;
+<%- end -%>
+<%- if @worker_cpu_affinity -%>
+worker_cpu_affinity <%= @worker_cpu_affinity %>;
+<%- end -%>
+<%- if @worker_rlimit_core -%>
+worker_rlimit_core <%= @worker_rlimit_core %>;
+<%- end -%>
+<%- if @worker_rlimit_nofile -%>
+worker_rlimit_nofile <$= @worker_rlimit_nofile %>;
+<%- end -%>
+<%- if @worker_directory -%>
+worker_directory <$= @worker_directory %>;
+<%- end -%>
+<%- if @master_process && @master_process != 'off' -%>
+master_process on;
+<%- else -%>
+master_process off;
+<%- end -%>
+

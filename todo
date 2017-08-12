@@ -20,3 +20,4 @@
 - #14 Add custom to nginx config so things can be added that I may have forgotten
   - thinking about this some more , I think this could be a 'custom include'
 - #15 Fix logic for thread_pools
+- #16 add load_module to config
