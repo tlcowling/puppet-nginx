@@ -4,7 +4,7 @@ class nginx::config (
   String                                       $pid   = '/var/run/nginx.pid',
   String                                       $user  = 'nginx',
   String                                       $group = 'nginx',
-  Optional[Hash[String, Hash[Enum['threads','max_queue'], Integer]]] $thread_pool = undef,
+  Optional[Hash[String, Hash[Enum['threads','max_queue'], Integer]]] $thread_pools = undef,
   Optional[String]                             $timer_resolution = undef,
   Optional[String]                             $ssl_engine = undef,
   Optional[Variant[Enum['on','off'], Boolean]] $daemon = undef,
@@ -18,6 +18,7 @@ class nginx::config (
   Optional[String]                             $worker_rlimit_nofile = undef,
   Optional[String]                             $worker_shutdown_timeout = undef,
   Optional[String]                             $worker_directory = undef,
+  Optional[Array[String]]                      $include = undef,
 ) {
   validate_absolute_path($base_directory)
 
@@ -74,5 +75,11 @@ class nginx::config (
     target  => 'nginx_config',
     content => 'events {}',
     order   => '02',
+  }
+
+  concat::fragment { 'nginx_config_include_thread_pools':
+    target  => 'nginx_config',
+    content => template('nginx/config/thread_pools.erb'),
+    order   => '03',
   }
 }

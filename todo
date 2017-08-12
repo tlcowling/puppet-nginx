@@ -17,3 +17,6 @@
 - #11 Make config work even if user provides no hiera
 - #12 Document all the config params
 - Bug #13 make the streams take integer or string
+- #14 Add custom to nginx config so things can be added that I may have forgotten
+  - thinking about this some more , I think this could be a 'custom include'
+- #15 Fix logic for thread_pools

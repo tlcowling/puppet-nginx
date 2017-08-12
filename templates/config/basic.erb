@@ -2,6 +2,10 @@
 user <%= nginx_config_user_line %>;
 pid <%= @pid %>;
 worker_processes <%= @worker_processes %>;
-<%- if @daemon -%>
-daemon 'on';
+<%- if @daemon && @daemon != 'off' -%>
+daemon on;
+<%- else -%>
+daemon off;
 <%- end -%>
+
+

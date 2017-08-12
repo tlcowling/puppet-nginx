@@ -3,7 +3,15 @@
 config:
   user: nginx
   worker_processes: 1
-  daemon: off
+  daemon: on
+  thread_pools:
+    bob:
+      threads: 10
+      max_queue: 10
+    bob2:
+      threads: 100
+      max_queue: 1003
+
 
 # Define upstreams that can be referred to later on
 upstreams:
