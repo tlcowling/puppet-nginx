@@ -1,3 +1,7 @@
-user <%= @user %>;
+<%- nginx_config_user_line = [@user, @group].reject{|x| x.nil? || x.empty? }.join(" ") -%>
+user <%= nginx_config_user_line %>;
+pid <%= @pid %>;
 worker_processes <%= @worker_processes %>;
-
+<%- if @daemon -%>
+daemon 'on';
+<%- end -%>

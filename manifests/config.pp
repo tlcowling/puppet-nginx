@@ -1,9 +1,23 @@
 class nginx::config (
-  Variant[String, Integer] $worker_processes = 'auto',
-  String $base_directory                     = '/etc/nginx',
-  String $user                               = 'nginx',
-  String $group                              = 'nginx',
-  String $pid                                = '/var/run/nginx.pid',
+  Variant[String, Integer]                     $worker_processes = 'auto',
+  String                                       $base_directory = '/etc/nginx',
+  String                                       $pid   = '/var/run/nginx.pid',
+  String                                       $user  = 'nginx',
+  String                                       $group = 'nginx',
+  Optional[Hash[String, Hash[Enum['threads','max_queue'], Integer]]] $thread_pool = undef,
+  Optional[String]                             $timer_resolution = undef,
+  Optional[String]                             $ssl_engine = undef,
+  Optional[Variant[Enum['on','off'], Boolean]] $daemon = undef,
+  Optional[Variant[Enum['on','off'], Boolean]] $master_process = undef,
+  Optional[Variant[Enum['on','off'], Boolean]] $pcre_jit = undef,
+  Optional[Enum['abort', 'stop']]              $debug_points = undef,
+  Optional[String]                             $lock_file = undef,
+  Optional[String]                             $worker_cpu_affinity = undef,
+  Optional[Integer[-20,20]]                    $worker_priority = undef,
+  Optional[String]                             $worker_rlimit_core = undef,
+  Optional[String]                             $worker_rlimit_nofile = undef,
+  Optional[String]                             $worker_shutdown_timeout = undef,
+  Optional[String]                             $worker_directory = undef,
 ) {
   validate_absolute_path($base_directory)
 

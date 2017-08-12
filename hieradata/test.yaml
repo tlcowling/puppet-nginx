@@ -1,4 +1,10 @@
 ---
+# Define an nginx config
+config:
+  user: nginx
+  worker_processes: 1
+  daemon: off
+
 # Define upstreams that can be referred to later on
 upstreams:
   webapp02: 
