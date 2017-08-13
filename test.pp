@@ -28,8 +28,27 @@ if $config {
   include nginx::config
 }
 
+$http = lookup('http')
+if $http {
+  notice('using hiera config:')
+  notice($http)
+  class { 'nginx::http':
+    chunked_transfer_encoding => $http['chunked_transfer_encoding'],
+    client_body_buffer_size => $http['client_body_buffer_size'],
+    client_body_in_file_only => $http['client_body_in_file_only'],
+    client_body_in_single_buffer => $http['client_body_in_single_buffer'],
+    client_body_temp_path => $http['client_body_temp_path'],
+    client_body_timeout => $http['client_body_timeout'],
+    client_header_buffer_size => $http['client_header_buffer_size'],
+    client_header_timeout => $http['client_header_timeout'],
+    client_max_body_size => $http['client_max_body_size'],
+  }
+} else {
+  notice('using default config')
+  include nginx::http
+}
+
 include nginx::types
-include nginx::http
 include nginx::events
 include nginx::streams
 include nginx::access_control_lists

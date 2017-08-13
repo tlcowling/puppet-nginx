@@ -89,7 +89,19 @@ class nginx::http (
   Optional[Variant[Enum['on','off'], Boolean]] $underscores_in_headers = undef,
   Optional[Variant[Integer,String]] $variables_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
-) {
+) inherits nginx::config {
+  concat { 'http_conf':
+    path  => "${base_directory}/http.conf",
+    owner => $user,
+    group => $group,
+    mode  => '0750',
+    ensure_newline => true,
+  }
 
+  concat::fragment { 'http_conf_client':
+    target => 'http_conf',
+    content => template('nginx/http/client.erb'),
+    order  => '01',
+  }
 
 }

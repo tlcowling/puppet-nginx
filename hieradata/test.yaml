@@ -16,6 +16,9 @@ config:
   master_process: off
   pcre_jit: off
 
+# define a http block
+http:
+  client_body_timeout: 10s
 
 # Define upstreams that can be referred to later on
 upstreams:
