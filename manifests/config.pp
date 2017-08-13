@@ -107,5 +107,4 @@ class nginx::config (
     content => 'events{}',
     order   => '07',
    }
-  
 }

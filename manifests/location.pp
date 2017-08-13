@@ -1,0 +1,2 @@
+define nginx::location () {}
+

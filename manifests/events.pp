@@ -9,9 +9,10 @@ class nginx::events (
 ) inherits nginx::config  {
   notice('Configuring nginx events')
 
-  concat::fragment { 'nginx_events':
+  concat::fragment { 'nginx_events_header':
     target  => 'nginx_conf',
     content => 'events {}',
     order   => '01',
   }
+
 }
