@@ -59,6 +59,6 @@ define nginx::location (
   Optional[Variant[String, Integer] $types = undef,
   Optional[Variant[String, Integer] $types_hash_bucket_size = undef,
   Optional[Variant[String, Integer] $types_hash_max_size = undef,
-) {
+) inherits nginx::config {
 }
 

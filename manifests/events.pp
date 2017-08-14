@@ -14,5 +14,4 @@ class nginx::events (
     content => 'events {}',
     order   => '01',
   }
-
 }

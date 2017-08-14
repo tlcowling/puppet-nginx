@@ -65,4 +65,6 @@ define nginx::server(
   Optional[String] $types_hash_bucket_size = undef,
   Optional[String] $types_hash_max_size = undef,
   Optional[String] $underscores_in_headers = undef,
-){}
+) inherits nginx::config {
+
+}
