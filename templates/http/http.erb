@@ -1,0 +1,111 @@
+<%- if @absolute_redirect && @absolute_redirect != 'off'-%>
+absolute_redirect on;
+<%- else -%>
+absolute redirect off;
+<%- end -%>
+<%- if @aio && @aio != 'off'-%>
+aio on;
+<%- else -%>
+aio off;
+<%- end -%>
+<%- if @aio_write && @aio_write != 'off'-%>
+aio_write on;
+<%- else -%>
+aio_write off;
+<%- end -%>
+<%- if @connection_pool_size -%>
+connectinon_pool_size <%= @connection_pool_size %>;
+<%- end -%>
+<%- if @default_type -%>
+default_type <%= @default_type %>;
+<%- end -%>
+<%- if @directio -%>
+directio <%= @directio %>;
+<%- end -%>
+<%- if @directio_alignment -%>
+directio_alignment <%= @directio_alignment %>;
+<%- end -%>
+<%- if @disable_symlinks -%>
+disable_symlinks <%= @disable_symlinks %>;
+<%- end -%>
+<%- if @etag && @etag != 'off'-%>
+etag on;
+<%- else -%>
+etag off;
+<%- end -%>
+<%- if @if_modified_since -%>
+if_modified_since <%= @if_modified_since %>;
+<%- end -%>
+<%- if @ignore_invalid_headers && @ignore_invalid_headers != 'off'-%>
+ignore_invalid_headers on;
+<%- else -%>
+ignore_invalid_headers off;
+<%- end -%>
+<%- if @keepalive_disable -%>
+keepalive_disable <%= @keepalive_disable %>;
+<%- end -%>
+<%- if @keepalive_requests -%>
+keepalive_requests <%= @keepalive_requests %>;
+<%- end -%>
+<%- if @keepalive_timeout -%>
+keepalive_timeout <%= @keepalive_timeout %>;
+<%- end -%>
+<%- if @large_client_header_buffers -%>
+large_client_header_buffers <%= @large_client_header_buffers %>;
+<%- end -%>
+<%- if @limit_rate -%>
+limit_rate <%= @limit_rate %>;
+<%- end -%>
+<%- if @limit_rate_after -%>
+limit_rate_after <%= @limit_rate_after %>;
+<%- end -%>
+<%- if @lingering_close == 'off' -%>
+lingering_close off;
+<%- elsif @lingering_close == 'always' -%>
+lingering_close always;
+<%- else -%>
+lingering_close on;
+<%- end -%>
+<%- if @lingering_time -%>
+lingering_time <%= @lingering_time %>;
+<%- end -%>
+<%- if @lingering_timeout -%>
+lingering_timeout <%= @lingering_timeout %>;
+<%- end -%>
+<%- if @log_not_found && @log_not_found != 'off'-%>
+log_not_found on;
+<%- else -%>
+log_not_found off;
+<%- end -%>
+<%- if @log_subrequest && @log_subrequest != 'off'-%>
+log_subrequest on;
+<%- else -%>
+log_subrequest off;
+<%- end -%>
+<%- if @max_ranges -%>
+max_ranges <%= @max_ranges %>;
+<%- end -%>
+<%- if @msie_padding && @msie_padding != 'off'-%>
+msie_padding on;
+<%- else -%>
+msie_padding off;
+<%- end -%>
+<%- if @msie_refresh && @msie_refresh != 'off'-%>
+msie_refresh on;
+<%- else -%>
+msie_refresh off;
+<%- end -%>
+<%- if @open_file_cache == 'off' -%>
+open_file_cache off;
+<%- else -%>
+<%- open_file_cache_line = [] -%>
+<%- @open_file_cache.each{|k, v| -%>
+<%-   open_file_cache_line << "#{k}=#{v}" -%>
+<%- } -%>
+open_file_cache <%= open_file_cache_line.join(" ") %>;
+<%- end -%>
+<%- if @open_file_cache_errors || @open_file_cache_errors != 'off' -%>
+open_file_cache_errors on;
+<%- else -%>
+open_file_cache_errors off;
+<%- end %>

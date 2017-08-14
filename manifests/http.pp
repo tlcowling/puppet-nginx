@@ -17,6 +17,7 @@
 # The value clean will cause the temporary files left after request processing to be removed.
 # @param client_body_in_single_buffer Determines whether nginx should save the entire client request body in a single buffer. The directive is recommended when using the $request_body variable, to save the number of copy operations involved.
 class nginx::http (
+  String $default_type = 'application/octet-stream',
   Variant[Enum['on','off'], Boolean] $gzip = 'on',
   Optional[Variant[Enum['on','off'], Boolean]] $absolute_redirect = undef,
   Optional[Variant[Enum['on','off'], Boolean]] $aio = undef,
@@ -31,13 +32,10 @@ class nginx::http (
   Optional[String] $client_header_timeout = undef,
   Optional[String] $client_max_body_size = undef,
   Optional[Integer] $connection_pool_size = undef,
-  String           $default_type = 'application/octet-stream',
   Optional[String] $directio = undef,
   Optional[String] $directio_alignment = undef,
   Optional[Pattern[/^off$|^on$|^if_not_owner/]] $disable_symlinks = undef,
-
   Optional[String] $error_page = undef,
-
   Optional[Variant[Enum['on','off'], Boolean]] $etag = undef,
   Optional[Enum['off','exact','before']] $if_modified_since = undef,
   Optional[Variant[Enum['on','off'], Boolean]] $ignore_invalid_headers = undef,
@@ -56,7 +54,7 @@ class nginx::http (
   Optional[Variant[Enum['on', 'off'], Boolean]] $merge_slashes = undef,
   Optional[Variant[Enum['on', 'off'], Boolean]] $msie_padding = undef,
   Optional[Variant[Enum['on', 'off'], Boolean]] $msie_refresh = undef,
-  Optional[Variant[String, Hash[Enum['max','inactive'], Variant[String, Integer]]]] $open_file_cache = undef,
+  Optional[Variant[Enum['off'], Hash[Enum['max','inactive'], Variant[String, Integer]]]] $open_file_cache = undef,
   Optional[Variant[Enum['on', 'off'], Boolean]] $open_file_cache_errors = undef,
   Optional[Integer] $open_file_cache_min_uses = undef,
   Optional[String] $open_file_cache_valid = undef,
@@ -67,11 +65,8 @@ class nginx::http (
   Optional[Variant[Enum['on', 'off'], Boolean]] $recursive_error_pages = undef,
   Optional[Variant[String,Integer]] $request_pool_size = undef,
   Optional[Variant[Enum['on', 'off'], Boolean]] $reset_timedout_connection = undef,
-
   Optional[String] $resolver = undef,
-
   Optional[String] $resolver_timeout = undef,
-
   Optional[String] $root = undef,
   Optional[Enum['all','any']] $satisfy = undef,
   Optional[Variant[String, Integer]] $send_lowat = undef,
@@ -102,6 +97,12 @@ class nginx::http (
     target => 'http_conf',
     content => template('nginx/http/client.erb'),
     order  => '01',
+  }
+
+  concat::fragment { 'http_conf_http':
+    target => 'http_conf',
+    content => template('nginx/http/http.erb'),
+    order  => '02',
   }
 
 }

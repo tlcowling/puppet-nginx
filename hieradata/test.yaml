@@ -19,6 +19,9 @@ config:
 # define a http block
 http:
   client_body_timeout: 10s
+  open_file_cache:
+    max: 1
+    inactive: 20
 
 # Define upstreams that can be referred to later on
 upstreams:
