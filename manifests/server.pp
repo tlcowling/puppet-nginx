@@ -29,7 +29,38 @@ define nginx::server(
   Optional[String] $lingering_close = undef,
   Optional[String] $lingering_time = undef,
   Optional[String] $lingering_timeout = undef,
-  Optional[String] $listen = undef,
+
+  Array[
+    Variant[
+      Enum[
+        'default_server',
+        'ssl',
+        'http2',
+        'spdy',
+        'proxy_protocol',
+        'deferred',
+      ],
+      Hash[
+        Enum[
+         'address',
+         'fastopen',
+         'backlog',
+         'rcvbuf',
+         'sndbuf',
+         'accept_filter',
+         'ipv6only',
+         'so_keepalive'
+        ],
+        Variant[
+          String,
+          Integer,
+          Boolean,
+        ],
+      ]
+    ]
+  ] $listen = undef,
+
+
   Optional[String] $location = undef,
   Optional[String] $log_not_found = undef,
   Optional[String] $log_subrequest = undef,
@@ -65,6 +96,26 @@ define nginx::server(
   Optional[String] $types_hash_bucket_size = undef,
   Optional[String] $types_hash_max_size = undef,
   Optional[String] $underscores_in_headers = undef,
-) inherits nginx::config {
+) {
+  concat { "/etc/nginx/${name}.conf":
+    ensure_newline => true,
+  }
 
+  concat::fragment{ "${name}_server_head":
+    content => "server {",
+    target  => "/etc/nginx/${name}.conf",
+    order   => '00',
+  }
+
+  concat::fragment{ "${name}_server_conf":
+    content => template('nginx/server/server.erb'),
+    target  => "/etc/nginx/${name}.conf",
+    order   => '01',
+  }
+
+  concat::fragment{ "${name}_server_bottom":
+    content => "}",
+    target  => "/etc/nginx/${name}.conf",
+    order   => '02',
+  }
 }

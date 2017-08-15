@@ -1,0 +1,9 @@
+<%- listen_line = [] -%>
+<%- @listen.each {|k, v|-%>
+<%-   if k.is_a? Hash -%>
+<%-     listen_line << k.collect{|x,y| x.to_s+"="+y.to_s }.join(" ")-%>
+<%-   else -%>
+<%-     listen_line << k -%>
+<%-   end -%>
+<%- }-%>
+  listen <%= listen_line.join(" ") %>;
