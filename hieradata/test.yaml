@@ -29,14 +29,24 @@ events:
 servers:
   tom01:
     listen:
-      - http2
-      - default_server
-      - ssl
-      - address: localhost:1234
-      - rcvbuf: 234
-      - sndbuf: 234
-      - so_keepalive: on
-    location: whocares yet
+      host: localhost
+      port: 1234
+      options:
+        - http2
+        - default_server
+        - ssl
+        - rcvbuf: 234
+        - sndbuf: 234
+        - so_keepalive: on
+    locations: 
+      - whocares
+      - justtheone
+      -
+
+# define a location block (for reference in a server for example)
+location:
+  tom01:
+    
 
 # Define upstreams that can be referred to later on
 upstreams:

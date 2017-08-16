@@ -102,9 +102,4 @@ class nginx::config (
     order   => '06',
   }
 
-  concat::fragment {'nginx_config_events':
-   target  => 'nginx_config',
-    content => 'events{}',
-    order   => '07',
-   }
 }

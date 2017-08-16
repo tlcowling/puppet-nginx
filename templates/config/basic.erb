@@ -21,9 +21,8 @@ timer_resolution <%= @timer_resolution %>;
 ssl_engine <%= @ssl_engine %>;
 <%- end -%>
 
-http {
-  include http.conf;	
-}
+include http.conf;
+include events.conf;
 
 stream {
   include streams.d/*;

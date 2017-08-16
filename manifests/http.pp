@@ -93,6 +93,12 @@ class nginx::http (
     ensure_newline => true,
   }
 
+  concat::fragment { 'http_header':
+    target => 'http_conf',
+    content => 'http {',
+    order  => '00',
+  }
+
   concat::fragment { 'http_conf_client':
     target => 'http_conf',
     content => template('nginx/http/client.erb'),
@@ -103,6 +109,18 @@ class nginx::http (
     target => 'http_conf',
     content => template('nginx/http/http.erb'),
     order  => '02',
+  }
+
+  concat::fragment { 'http_conf_servers':
+    target => 'http_conf',
+    content => '  include servers.d/*;',
+    order  => '03',
+  }
+
+  concat::fragment { 'http_footer':
+    target => 'http_conf',
+    content => '}',
+    order  => '04',
   }
 
 }

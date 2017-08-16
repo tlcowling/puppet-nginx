@@ -1,4 +1,4 @@
-define nginx::server(
+define nginx::server::server(
   Optional[String] $absolute_redirect = undef,
   Optional[String] $aio = undef,
   Optional[String] $aio_write = undef,
@@ -30,32 +30,45 @@ define nginx::server(
   Optional[String] $lingering_time = undef,
   Optional[String] $lingering_timeout = undef,
 
-  Array[
+  Hash[
+    Enum[
+      'host',
+      'port',
+      'options',
+    ],
     Variant[
-      Enum[
-        'default_server',
-        'ssl',
-        'http2',
-        'spdy',
-        'proxy_protocol',
-        'deferred',
-      ],
-      Hash[
-        Enum[
-         'address',
-         'fastopen',
-         'backlog',
-         'rcvbuf',
-         'sndbuf',
-         'accept_filter',
-         'ipv6only',
-         'so_keepalive'
-        ],
-        Variant[
-          String,
-          Integer,
-          Boolean,
-        ],
+      String,
+      Integer,
+      Array[
+        Variant[ 
+          Enum[
+            'default_server',
+            'ssl',
+            'http2',
+            'spdy',
+            'proxy_protocol',
+            'deferred', 
+            'reuseport',
+            'bind',
+          ],
+          Hash[
+            Enum[
+             'set_fib',
+             'fastopen',
+             'backlog',
+             'rcvbuf',
+             'sndbuf',
+             'accept_filter',
+             'ipv6only',
+             'so_keepalive',
+            ],
+            Variant[
+              String,
+              Integer,
+              Boolean,
+            ]
+          ]
+        ]
       ]
     ]
   ] $listen = undef,
@@ -97,25 +110,25 @@ define nginx::server(
   Optional[String] $types_hash_max_size = undef,
   Optional[String] $underscores_in_headers = undef,
 ) {
-  concat { "/etc/nginx/${name}.conf":
+  concat { "/etc/nginx/servers.d/${name}.conf":
     ensure_newline => true,
   }
 
   concat::fragment{ "${name}_server_head":
     content => "server {",
-    target  => "/etc/nginx/${name}.conf",
+    target  => "/etc/nginx/servers.d/${name}.conf",
     order   => '00',
   }
 
   concat::fragment{ "${name}_server_conf":
     content => template('nginx/server/server.erb'),
-    target  => "/etc/nginx/${name}.conf",
+    target  => "/etc/nginx/servers.d/${name}.conf",
     order   => '01',
   }
 
   concat::fragment{ "${name}_server_bottom":
     content => "}",
-    target  => "/etc/nginx/${name}.conf",
+    target  => "/etc/nginx/servers.d/${name}.conf",
     order   => '02',
   }
 }

@@ -9,8 +9,13 @@ class nginx::events (
 ) inherits nginx::config  {
   notice('Configuring nginx events')
 
+
+  concat { "${base_directory}/events.conf":
+    ensure_newline => true,
+  }
+  
   concat::fragment { 'nginx_events_header':
-    target  => 'nginx_conf',
+    target  => "${base_directory}/events.conf",
     content => 'events {}',
     order   => '01',
   }

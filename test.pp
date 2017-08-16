@@ -49,13 +49,11 @@ if $http {
   include nginx::http
 }
 
-$servers = lookup('servers')
-$servers.each |$servername, $srv| {
-  notice("Creating server ${srv}")
-  nginx::server { $servername: 
-    listen => $srv['listen'],
-  }
+class { nginx::servers: 
+  servers => lookup('servers')
 }
+# $servers = lookup('servers')
+
 
 include nginx::types
 include nginx::events

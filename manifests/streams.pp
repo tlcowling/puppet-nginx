@@ -6,6 +6,8 @@ class nginx::streams (
     owner  => $user,
     group  => $group,
     mode   => '0755',
+    recurse => true,
+    purge => true,
     ensure => 'directory',
   }
   
@@ -25,6 +27,7 @@ class nginx::streams (
   
   $servers = lookup('streams')
   notice("Servers: ${servers}")
+
   $servers.each |$servername, $server| {
     nginx::stream::server { $servername:
       port                 => $server['port'],    

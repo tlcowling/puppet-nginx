@@ -1,9 +1,16 @@
-<%- listen_line = [] -%>
-<%- @listen.each {|k, v|-%>
+<%- address = [@listen['host'], @listen['port']].compact.join(":") -%>
+<%- options = [] -%>
+<%- @listen['options'].each {|k, v| -%>
 <%-   if k.is_a? Hash -%>
-<%-     listen_line << k.collect{|x,y| x.to_s+"="+y.to_s }.join(" ")-%>
+<%-     options << k.collect{|x, option_value| -%>
+<%#-       This is a fix for the yaml values which come in as true to get converted to on/off -%>
+<%-       if (option_value.is_a? TrueClass or option_value.is_a? FalseClass) -%>
+<%-         option_value = option_value ? 'on' : 'off' -%>
+<%-       end -%>
+<%-		  x.to_s + "=" + option_value.to_s -%>
+<%-     }.join(" ")-%>
 <%-   else -%>
-<%-     listen_line << k -%>
+<%-     options << k -%>
 <%-   end -%>
 <%- }-%>
-  listen <%= listen_line.join(" ") %>;
+  listen <%= address %> <%= options.join(" ") %>;
