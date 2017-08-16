@@ -54,8 +54,18 @@ class { nginx::servers:
 }
 # $servers = lookup('servers')
 
+$events = lookup('events')
+class { 'nginx::events':
+  worker_connections  => $events['worker_connections'],
+  multi_accept        => $events['multi_accept'],
+  accept_mutex        => $events['accept_mutex'],
+  accept_mutex_delay  => $events['accept_mutex_delay'],
+  debug_connection    => $events['debug_connection'],
+  use                 => $events['use'],
+  worker_aio_requests => $events['worker_aio_requests'],
+}
+
 
 include nginx::types
-include nginx::events
 include nginx::streams
 include nginx::access_control_lists

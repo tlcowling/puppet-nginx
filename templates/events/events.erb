@@ -1,0 +1,25 @@
+events {
+  <%- if @worker_connections -%>
+  worker_connections <%= @worker_connections %>;
+  <%- end -%>
+  <%- if @multi_accept %>
+  multi_accept on;
+  <%- end -%>
+  <%- if @accept_mutex -%>
+  accept_mutex on;
+  <%- end -%>
+  <%- if @accept_mutex_delay -%>
+  accept_mutex_delay <%= @accept_mutex_delay %>;
+  <%- end -%>
+  <%- if @debug_connection -%>
+  <%-   @debug_connection.each {|dc| -%>
+  debug_connection <%= dc %>;
+  <%- 	} -%>
+  <%- end -%>
+  <%- if @use -%>
+  use <%= @use %>;
+  <%- end -%>
+  <%- if @worker_aio_requests -%>
+  worker_aio_requests <%= @worker_aio_requests %>;
+  <%- end -%>
+}
