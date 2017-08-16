@@ -1,6 +1,6 @@
 define nginx::stream::upstream (
   Enum['round-robin', 'least_conn', 'hash'] $method = 'round-robin',
-  String                                    $method_attribute = "",
+  String                                    $method_attribute = '',
   Array[Hash[Enum['address','max_conns','max_fails','weight','fail_timeout','backup','down'],Variant[String,Integer]]] $servers = [],
 ) {
 
@@ -14,10 +14,10 @@ define nginx::stream::upstream (
     content => template('nginx/upstream_block_top.erb'),
     order   => '01',
   }
- 
+
   $servers.each |$server| {
     concat::fragment { "${server} upstream fragment":
-      target => $streams_config_dir,
+      target  => $streams_config_dir,
       content => template('nginx/upstream_server.erb'),
     }
   }

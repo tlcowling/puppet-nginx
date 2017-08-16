@@ -12,8 +12,8 @@ define nginx::config::gzip (
   notice("configuring ${name} gzip configuration")
 
   file { "gzip_config_${name}":
-    path  => "/etc/nginx/gzip.d/${name}",
-    mode   => '0750',
+    path    => "/etc/nginx/gzip.d/${name}",
+    mode    => '0750',
     content => template('nginx/gzip/gzip.erb'),
   }
 }

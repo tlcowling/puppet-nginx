@@ -86,41 +86,41 @@ class nginx::http (
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
 ) inherits nginx::config {
   concat { 'http_conf':
-    path  => "${base_directory}/http.conf",
-    owner => $user,
-    group => $group,
-    mode  => '0750',
+    path           => "${base_directory}/http.conf",
+    owner          => $user,
+    group          => $group,
+    mode           => '0750',
     ensure_newline => true,
   }
 
   concat::fragment { 'http_header':
-    target => 'http_conf',
+    target  => 'http_conf',
     content => 'http {',
-    order  => '00',
+    order   => '00',
   }
 
   concat::fragment { 'http_conf_client':
-    target => 'http_conf',
+    target  => 'http_conf',
     content => template('nginx/http/client.erb'),
-    order  => '01',
+    order   => '01',
   }
 
   concat::fragment { 'http_conf_http':
-    target => 'http_conf',
+    target  => 'http_conf',
     content => template('nginx/http/http.erb'),
-    order  => '02',
+    order   => '02',
   }
 
   concat::fragment { 'http_conf_servers':
-    target => 'http_conf',
+    target  => 'http_conf',
     content => '  include servers.d/*;',
-    order  => '03',
+    order   => '03',
   }
 
   concat::fragment { 'http_footer':
-    target => 'http_conf',
+    target  => 'http_conf',
     content => '}',
-    order  => '04',
+    order   => '04',
   }
 
 }

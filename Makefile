@@ -10,3 +10,4 @@ test: build
 
 lint:
 	find . -name '*.pp' | xargs puppet-lint
+

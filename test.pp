@@ -49,11 +49,11 @@ if $http {
   include nginx::http
 }
 
-class { nginx::servers: 
+class { 'nginx::servers':
   servers => lookup('servers')
 }
 
-class { nginx::gzip:
+class { 'nginx::gzip':
   gzip_configs => lookup('gzip')
 }
 # $servers = lookup('servers')

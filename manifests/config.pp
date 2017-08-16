@@ -50,14 +50,14 @@ class nginx::config (
   }
 
   concat { 'nginx_config':
-    ensure  => 'present',
-    owner   => $user,
-    group   => $group,
-    mode    => '0640',
-    path    => "${base_directory}/nginx.conf",
+    ensure         => 'present',
+    owner          => $user,
+    group          => $group,
+    mode           => '0640',
+    path           => "${base_directory}/nginx.conf",
     ensure_newline => true,
-    require => File[$base_directory],
-    notify  => Exec['config_test'],
+    require        => File[$base_directory],
+    notify         => Exec['config_test'],
   }
 
   concat::fragment { 'nginx_config_header':

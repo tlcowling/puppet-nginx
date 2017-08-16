@@ -3,34 +3,34 @@ class nginx::streams (
 ) inherits nginx::config {
 
   file { '/etc/nginx/streams.d':
-    owner  => $user,
-    group  => $group,
-    mode   => '0755',
+    ensure  => 'directory',
+    group   => $group,
+    mode    => '0755',
     recurse => true,
-    purge => true,
-    ensure => 'directory',
+    purge   => true,
+    owner   => $user,
   }
-  
+
   $upstreams = lookup('upstreams')
-  
+
   $upstreams.each |$upname, $upstream| {
     if $upstream == undef {
       fail('an upstream must contain something')
     }
-  
+
     nginx::stream::upstream { $upname:
       method           => $upstream['method'],
       method_attribute => $upstream['method_attribute'],
       servers          => $upstream['servers'],
     }
   }
-  
+
   $servers = lookup('streams')
   notice("Servers: ${servers}")
 
   $servers.each |$servername, $server| {
     nginx::stream::server { $servername:
-      port                 => $server['port'],    
+      port                 => $server['port'],
       protocol             => $server['protocol'],
       upstream             => $server['upstream'],
       access_control_lists => $server['access_control_lists'],

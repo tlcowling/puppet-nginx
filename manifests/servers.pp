@@ -3,31 +3,31 @@ class nginx::servers (
 ) inherits nginx::config {
 
   file { "${base_directory}/servers.d":
-    owner  => $user,
+    ensure => 'directory',
     group  => $group,
     mode   => '0755',
-    ensure => 'directory',
+    owner  => $user,
   }
-  
+
   $servers.each |$servername, $srv| {
     notice("Creating server ${srv}")
-    nginx::config::server { $servername: 
+    nginx::config::server { $servername:
       listen => $srv['listen'],
     }
   }
-  
+
   # $upstreams.each |$upname, $upstream| {
   #   if $upstream == undef {
   #     fail('an upstream must contain something')
   #   }
-  
+
   #   nginx::stream::upstream { $upname:
   #     method           => $upstream['method'],
   #     method_attribute => $upstream['method_attribute'],
   #     servers          => $upstream['servers'],
   #   }
   # }
-  
+
   # $servers = lookup('streams')
   # notice("Servers: ${servers}")
   # $servers.each |$servername, $server| {

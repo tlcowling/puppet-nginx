@@ -1,10 +1,10 @@
 define nginx::stream::server(
   Integer $port,
-  Enum['tcp', 'udp'] $protocol = "tcp",
+  Enum['tcp', 'udp'] $protocol = 'tcp',
   String $upstream,
-  String $proxy_bind = "", 
-  String $proxy_buffer_size = "",
-  String $zone = "",
+  String $proxy_bind = '',
+  String $proxy_buffer_size = '',
+  String $zone = '',
   Array[String] $access_control_lists = [],
 ) {
 
@@ -20,7 +20,7 @@ define nginx::stream::server(
     order   => '01',
   }
 
-  concat::fragment { "${name} server": 
+  concat::fragment { "${name} server":
     target  => $streams_config_dir,
     content => template('nginx/server.erb'),
     order   => '02',

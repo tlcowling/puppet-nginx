@@ -40,14 +40,14 @@ define nginx::config::server(
       String,
       Integer,
       Array[
-        Variant[ 
+        Variant[
           Enum[
             'default_server',
             'ssl',
             'http2',
             'spdy',
             'proxy_protocol',
-            'deferred', 
+            'deferred',
             'reuseport',
             'bind',
           ],
@@ -115,7 +115,7 @@ define nginx::config::server(
   }
 
   concat::fragment{ "${name}_server_head":
-    content => "server {",
+    content => 'server {',
     target  => "/etc/nginx/servers.d/${name}.conf",
     order   => '00',
   }
@@ -127,7 +127,7 @@ define nginx::config::server(
   }
 
   concat::fragment{ "${name}_server_bottom":
-    content => "}",
+    content => '}',
     target  => "/etc/nginx/servers.d/${name}.conf",
     order   => '02',
   }

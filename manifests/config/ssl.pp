@@ -23,5 +23,5 @@ define nginx::config::ssl (
   Optional[Enum['on', 'off', 'optional', 'optional_no_ca']] $ssl_verify_client = undef,
   Optional[Variant[String, Integer]] $ssl_verify_depth = undef,
 ) inherits nginx::config {
-	notice('creating ssl config')
+  notice('creating ssl config')
 }
