@@ -52,6 +52,10 @@ if $http {
 class { nginx::servers: 
   servers => lookup('servers')
 }
+
+class { nginx::gzip:
+  gzip_configs => lookup('gzip')
+}
 # $servers = lookup('servers')
 
 $events = lookup('events')

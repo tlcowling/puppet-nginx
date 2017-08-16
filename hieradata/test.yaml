@@ -30,6 +30,17 @@ events:
     - localhost
     - 127.0.0.1:3432
 
+# define some standard gzip configs
+gzip:
+  extreme:
+    gzip: true
+    gzip_comp_level: 9
+  low:
+    gzip: true
+    gzip_comp_level: 3
+  nogzip:
+    gzip: false
+
 servers:
   tom01:
     listen:

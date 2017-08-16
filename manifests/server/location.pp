@@ -1,4 +1,0 @@
-define nginx::server::location (
-){
-
-}

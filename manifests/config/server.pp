@@ -1,4 +1,4 @@
-define nginx::server::server(
+define nginx::config::server(
   Optional[String] $absolute_redirect = undef,
   Optional[String] $aio = undef,
   Optional[String] $aio_write = undef,

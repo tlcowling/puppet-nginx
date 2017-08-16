@@ -1,0 +1,4 @@
+define nginx::config::location (
+) {
+
+}

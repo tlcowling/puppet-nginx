@@ -1,0 +1,29 @@
+<%- if @gzip -%>
+gzip on;
+<%- else -%>
+gzip off;
+<%- end -%>
+<%- if @gzip_buffers -%>
+gzip_buffers <%= @gzip_buffers %>;
+<%- end -%>
+<%- if @gzip_comp_level -%>
+gzip_comp_level <%= @gzip_comp_level %>;
+<%- end -%>
+<%- if @gzip_disable -%>
+gzip_disable <%= @gzip_disable %>;
+<%- end -%>
+<%- if @gzip_min_length -%>
+gzip_min_length <%= @gzip_min_length %>;
+<%- end -%>
+<%- if @gzip_http_version -%>
+gzip_http_version <%= @gzip_http_version %>;
+<%- end -%>
+<%- if @gzip_types -%>
+gzip_types <%= @gzip_types %>;
+<%- end -%>
+<%- if @gzip_vary -%>
+gzip_vary on;
+<%- end -%>
+<%- if @gzip_proxied -%>
+gzip_proxied <%= @gzip_proxied %>;
+<%- end -%>
