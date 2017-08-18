@@ -6,5 +6,7 @@ class nginx::limits (
 		owner   => $user,
 		group   => $group,
 		mode    => '0750',
+		recurse => true,
+		purge   => true,
 	}
 }

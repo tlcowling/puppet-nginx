@@ -15,6 +15,7 @@ class nginx::servers (
     notice("Creating server ${srv}")
     nginx::config::server { $servername:
       listen => $srv['listen'],
+      locations => $srv['locations'],
     }
   }
 

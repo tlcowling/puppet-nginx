@@ -53,6 +53,10 @@ class { 'nginx::servers':
   servers => lookup('servers')
 }
 
+class { 'nginx::locations':
+  location_configs => lookup('locations')
+}
+
 class { 'nginx::gzip':
   gzip_configs => lookup('gzip')
 }

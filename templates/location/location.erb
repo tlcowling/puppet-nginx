@@ -1,0 +1,16 @@
+<%- if @alias -%>
+  alias <%= @alias %>;
+<%- end -%>
+<%- if @internal -%>
+  internal;
+<%- end -%>
+<%- if @limit_except -%>
+  limit_except <%= @limit_except['method'] %> {
+<%- @limit_except['allow'].each{|acl| -%>
+    allow <%= acl %>;
+<%-	} -%>
+<%- @limit_except['deny'].each{|acl| -%>
+    deny <%= acl %>;
+<%-	} -%>
+  }
+<%- end -%>

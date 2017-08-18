@@ -61,7 +61,6 @@ servers:
         - so_keepalive: on
     locations: 
       - tom01
-      - tom02
   tom02:
     listen:
       host: localhost
@@ -70,10 +69,18 @@ servers:
         - http2
         - ssl
 
-# define a location block (for reference in a server for example)
-location:
+# define a location blocks (for reference in a server for example)
+locations:
   tom01:
-    
+    uri: /test
+    limit_except:
+      method: GET
+      allow:
+        - 1.2.1.3
+      deny:
+        - all
+    alias: bob
+    internal: true
 
 # Define upstreams that can be referred to later on
 upstreams:
