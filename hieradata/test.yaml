@@ -72,6 +72,7 @@ servers:
 # define a location blocks (for reference in a server for example)
 locations:
   tom01:
+    etag: true
     uri: /test
     limit_except:
       method: GET
