@@ -86,6 +86,7 @@ define nginx::config::location (
   Optional[Boolean] $underscores_in_headers = undef,
   Optional[Variant[Integer,String]] $variables_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
+  Optional[Array[String]] $access_control_lists = undef,
 ) {
 
     concat { "/etc/nginx/locations.d/${name}":
@@ -110,10 +111,16 @@ define nginx::config::location (
 		order   => '02',
 	}
 
+	concat::fragment { "/etc/nginx/locations.d/${name}_acls":
+		target  => "/etc/nginx/locations.d/${name}",
+		content => template('nginx/location/acls.erb'),
+		order   => '03',
+	}
+
 	concat::fragment { "/etc/nginx/locations.d/${name}_bottom":
 		target  => "/etc/nginx/locations.d/${name}",
 		content => "}",
-		order   => '03',
+		order   => '04',
 	}
 }
 

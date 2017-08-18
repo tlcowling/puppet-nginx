@@ -81,6 +81,8 @@ locations:
         - all
     alias: bob
     internal: true
+    access_control_lists:
+      - deny_evil_corp
 
 # Define upstreams that can be referred to later on
 upstreams:

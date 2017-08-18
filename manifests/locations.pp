@@ -16,6 +16,7 @@ class nginx::locations (
 			uri => $config['uri'],
 			alias => $config['alias'],
 			limit_except => $config['limit_except'],
+			access_control_lists => $config["access_control_lists"],
 		}
 	}
 }

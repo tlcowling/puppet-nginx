@@ -1,0 +1,5 @@
+<%- if @access_control_lists -%>
+<%- @access_control_lists.each { |acl| -%>
+  include acls.d/<%= acl %>;
+<%- } -%>
+<%- end -%>
