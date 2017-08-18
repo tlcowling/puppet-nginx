@@ -62,6 +62,10 @@ class { 'nginx::ssl':
 }
 # $servers = lookup('servers')
 
+class { 'nginx::auth_requests':
+  auth_request_configs => lookup('auth_requests')
+}
+
 $events = lookup('events')
 class { 'nginx::events':
   worker_connections  => $events['worker_connections'],

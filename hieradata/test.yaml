@@ -107,6 +107,13 @@ streams:
     access_control_lists:
       - deny_evil_corp
 
+auth_requests:
+  tomtest:
+    auth_request: /auth
+    auth_request_set:
+      test: giblets
+      giblets: fresh
+
 # Define a set of access_control_lists that can be assigned to
 # streams.
 access_control_lists:
