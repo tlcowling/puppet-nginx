@@ -1,12 +1,20 @@
 class nginx::ssl (
-  Optional $ssl_configs = undef,
+  Optional[Hash] $ssl_configs = undef,
 ) inherits nginx::config {
-  file { "${base_directory}/nginx/ssl.d":
+  
+  file { "${base_directory}/ssl.d":
     ensure  => directory,
     recurse => true,
     purge   => true,
     owner   => $user,
     group   => $group,
     mode    => '0750',
+  }
+
+  $ssl_configs.each |$n, $config| {
+  	nginx::config::ssl { $n:
+  		ssl => $config['ssl'],
+  		ssl_ciphers => $config['ssl_ciphers'],
+  	}
   }
 }

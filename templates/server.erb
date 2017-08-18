@@ -11,6 +11,6 @@
 <%- end -%>
 <%- if @access_control_lists != [] -%>
   <%- @access_control_lists.each { |acl| -%>
-  include 'acls/<%= acl %>';
+  include 'acls.d/<%= acl %>';
   <%- } -%>
 <%- end -%>

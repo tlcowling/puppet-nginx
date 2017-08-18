@@ -41,6 +41,11 @@ gzip:
   nogzip:
     gzip: false
 
+ssl:
+  hardcore:
+    ssl: on
+    ssl_ciphers: HIGH:!aNULL:!MD5
+
 servers:
   tom01:
     listen:

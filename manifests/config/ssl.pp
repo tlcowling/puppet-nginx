@@ -1,5 +1,5 @@
 define nginx::config::ssl (
-  Optional[Boolean]] $ssl = undef,
+  Optional[Boolean] $ssl = undef,
   Optional[Variant[String, Integer]] $ssl_buffer_size = undef,
   Optional[String] $ssl_certificate = undef,
   Optional[String] $ssl_certificate_key = undef,
@@ -22,6 +22,15 @@ define nginx::config::ssl (
   Optional[String] $ssl_trusted_certificate = undef,
   Optional[Enum['on', 'off', 'optional', 'optional_no_ca']] $ssl_verify_client = undef,
   Optional[Variant[String, Integer]] $ssl_verify_depth = undef,
-) inherits nginx::config {
-  notice('creating ssl config')
+) {
+  notice("creating ssl config ${name}")
+  
+  file { "${name} ssl config":
+    ensure  => 'present',
+    path    => "/etc/nginx/ssl.d/${name}",
+    content => template('nginx/ssl/ssl.erb'),
+    owner   => 'nginx',
+    group   => 'nginx',
+    mode    => '0750',
+  }
 }

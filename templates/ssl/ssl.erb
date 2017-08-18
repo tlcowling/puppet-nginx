@@ -1,0 +1,75 @@
+<%- if @ssl -%>
+ssl on;
+<%- end -%>
+<%- if @ssl_buffer_size -%>
+ssl_buffer_size <%= @ssl_buffer_size -%>;
+<%- end -%>
+<%- if @ssl_certificate -%>
+ssl_certificate <%= @ssl_certificate -%>;
+<%- end -%>
+<%- if @ssl_certificate_key -%>
+ssl_certificate_key <%= @ssl_certificate_key -%>;
+<%- end -%>
+<%- if @ssl_ciphers -%>
+ssl_ciphers <%= @ssl_ciphers -%>;
+<%- end -%>
+<%- if @ssl_client_certificate -%>
+ssl_client_certificate <%= @ssl_client_certificate -%>;
+<%- end -%>
+<%- if @ssl_crl -%>
+ssl_crl <%= @ssl_crl -%>;
+<%- end -%>
+<%- if @ssl_dhparam -%>
+ssl_dhparam <%= @ssl_dhparam -%>;
+<%- end -%>
+<%- if @ssl_ecdh_curve -%>
+ssl_ecdh_curve <%= @ssl_ecdh_curve -%>;
+<%- end -%>
+<%- if @ssl_password_file -%>
+ssl_password_file <%= @ssl_password_file -%>;
+<%- end -%>
+<%- if @ssl_prefer_server_ciphers -%>
+ssl_prefer_server_ciphers on;
+<%- end -%>
+<%- if @ssl_protocols -%>
+ssl_protocols <%= @ssl_protocols -%>;
+<%- end -%>
+<%- if @ssl_session_cache -%>
+ssl_session_cache <%= @ssl_session_cache -%>;
+<%- end -%>
+<%- if @ssl_protocols -%>
+ssl_protocols <%= @ssl_protocols -%>;
+<%- end -%>
+<%- if @ssl_session_cache -%>
+ssl_session_cache <%= @ssl_session_cache -%>;
+<%- end -%>
+<%- if @ssl_session_ticket_key -%>
+ssl_session_ticket_key <%= @ssl_session_ticket_key -%>;
+<%- end -%>
+<%- if @ssl_session_tickets -%>
+ssl_session_tickets <%= @ssl_session_tickets -%>;
+<%- end -%>
+<%- if @ssl_session_timeout -%>
+ssl_session_timeout <%= @ssl_session_timeout -%>;
+<%- end -%>
+<%- if @ssl_stapling_file -%>
+ssl_stapling_file <%= @ssl_stapling_file -%>;
+<%- end -%>
+<%- if @ssl_stapling_responder -%>
+ssl_stapling_responder <%= @ssl_stapling_responder -%>;
+<%- end -%>
+<%- if @ssl_stapling_responder -%>
+ssl_stapling_responder <%= @ssl_stapling_responder -%>;
+<%- end -%>
+<%- if @ssl_stapling_verify -%>
+ssl_stapling_verify <%= @ssl_stapling_verify -%>;
+<%- end -%>
+<%- if @ssl_trusted_certificate -%>
+ssl_trusted_certificate <%= @ssl_trusted_certificate -%>
+<%- end -%>
+<%- if @ssl_verify_client -%>
+ssl_verify_client <%= @ssl_verify_client -%>;
+<%- end -%>
+<%- if @ssl_verify_depth -%>
+ssl_verify_depth <%= @ssl_verify_depth -%>;
+<%- end -%>

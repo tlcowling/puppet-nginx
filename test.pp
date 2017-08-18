@@ -56,6 +56,10 @@ class { 'nginx::servers':
 class { 'nginx::gzip':
   gzip_configs => lookup('gzip')
 }
+
+class { 'nginx::ssl':
+  ssl_configs => lookup('ssl')
+}
 # $servers = lookup('servers')
 
 $events = lookup('events')
