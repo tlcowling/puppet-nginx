@@ -16,6 +16,7 @@ config:
   master_process: off
   pcre_jit: off
 
+
 # define a http block
 http:
   client_body_timeout: 10s
@@ -26,9 +27,9 @@ http:
 # define an events block
 events:
   worker_connections: 2024
-  debug_connection:
-    - localhost
-    - 127.0.0.1:3432
+  # debug_connection:
+    # - localhost
+    # - 127.0.0.1:3432
 
 # define some standard gzip configs
 gzip:

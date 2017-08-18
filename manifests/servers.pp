@@ -3,10 +3,12 @@ class nginx::servers (
 ) inherits nginx::config {
 
   file { "${base_directory}/servers.d":
-    ensure => 'directory',
-    group  => $group,
-    mode   => '0755',
-    owner  => $user,
+    ensure  => 'directory',
+    recurse => true,
+    purge   => true,
+    group   => $group,
+    mode    => '0755',
+    owner   => $user,
   }
 
   $servers.each |$servername, $srv| {

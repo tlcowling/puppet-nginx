@@ -1,91 +1,12 @@
-<%- if @absolute_redirect-%>
-  absolute_redirect on;
-<%- end -%>
-<%- if @aio-%>
-  aio on;
-<%- end -%>
-<%- if @aio_write-%>
-  aio_write on;
-<%- end -%>
 <%- if @connection_pool_size -%>
   connectinon_pool_size <%= @connection_pool_size %>;
-<%- end -%>
-<%- if @default_type -%>
-  default_type <%= @default_type %>;
-<%- end -%>
-<%- if @directio -%>
-  directio <%= @directio %>;
-<%- end -%>
-<%- if @directio_alignment -%>
-  directio_alignment <%= @directio_alignment %>;
-<%- end -%>
-<%- if @disable_symlinks -%>
-  disable_symlinks <%= @disable_symlinks %>;
-<%- end -%>
-<%- if @etag-%>
-  etag on;
-<%- end -%>
-<%- if @if_modified_since -%>
-  if_modified_since <%= @if_modified_since %>;
 <%- end -%>
 <%- if @ignore_invalid_headers -%>
   ignore_invalid_headers on;
 <%- end -%>
-<%- if @keepalive_disable -%>
-  keepalive_disable <%= @keepalive_disable %>;
-<%- end -%>
-<%- if @keepalive_requests -%>
-  keepalive_requests <%= @keepalive_requests %>;
-<%- end -%>
-<%- if @keepalive_timeout -%>
-  keepalive_timeout <%= @keepalive_timeout %>;
-<%- end -%>
 <%- if @large_client_header_buffers -%>
   large_client_header_buffers <%= @large_client_header_buffers %>;
 <%- end -%>
-<%- if @limit_rate -%>
-  limit_rate <%= @limit_rate %>;
+<%- if @merge_slashes -%>
+  merge_slashes <%= @merge_slashes %>;
 <%- end -%>
-<%- if @limit_rate_after -%>
-  limit_rate_after <%= @limit_rate_after %>;
-<%- end -%>
-<%- if @lingering_close == 'off' -%>
-  lingering_close off;
-<%- elsif @lingering_close == 'always' -%>
-  lingering_close always;
-<%- else -%>
-  lingering_close on;
-<%- end -%>
-<%- if @lingering_time -%>
-  lingering_time <%= @lingering_time %>;
-<%- end -%>
-<%- if @lingering_timeout -%>
-  lingering_timeout <%= @lingering_timeout %>;
-<%- end -%>
-<%- if @log_not_found-%>
-  log_not_found on;
-<%- end -%>
-<%- if @log_subrequest -%>
-  log_subrequest on;
-<%- end -%>
-<%- if @max_ranges -%>
-  max_ranges <%= @max_ranges %>;
-<%- end -%>
-<%- if @msie_padding -%>
-  msie_padding on;
-<%- end -%>
-<%- if @msie_refresh -%>
-  msie_refresh on;
-<%- end -%>
-<%- if @open_file_cache == 'off' -%>
-  open_file_cache off;
-<%- else -%>
-<%- open_file_cache_line = [] -%>
-<%- @open_file_cache.each{|k, v| -%>
-<%-   open_file_cache_line << "#{k}=#{v}" -%>
-<%- } -%>
-  open_file_cache <%= open_file_cache_line.join(" ") %>;
-<%- end -%>
-<%- if @open_file_cache_errors -%>
-  open_file_cache_errors on;
-<%- end %>

@@ -53,7 +53,7 @@ class nginx::http (
   Optional[Boolean] $merge_slashes = undef,
   Optional[Boolean] $msie_padding = undef,
   Optional[Boolean] $msie_refresh = undef,
-  Optional[Variant[Enum['off'], Hash[Enum['max','inactive'], Variant[String, Integer]]]] $open_file_cache = undef,
+  Optional[Hash[Enum['max','inactive'], Variant[String, Integer]]] $open_file_cache = undef,
   Optional[Boolean] $open_file_cache_errors = undef,
   Optional[Integer] $open_file_cache_min_uses = undef,
   Optional[String] $open_file_cache_valid = undef,

@@ -121,7 +121,7 @@ define nginx::config::server(
   }
 
   concat::fragment{ "${name}_server_conf":
-    content => template('nginx/server/server.erb'),
+    content => template('nginx/shared/shared.erb'),
     target  => "/etc/nginx/servers.d/${name}.conf",
     order   => '01',
   }

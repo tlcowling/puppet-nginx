@@ -1,27 +1,6 @@
-<%- if @chunked_transfer_encoding -%>
-  chunked_transfer_encoding on;
-<%- end -%>
-<%- if @client_body_buffer_size -%>
-  client_body_buffer_size <%= @client_header_buffer_size %>;
-<%- end -%>
-<%- if @client_body_in_file_only -%>
-  client_body_in_file_only <%= @client_body_in_file_only %>;
-<%- end -%>
-<%- if @client_body_in_single_buffer -%>
-  client_body_in_single_buffer on;
-<%- end -%>
-<%- if @client_body_timeout -%>
-  client_body_timeout <%= @client_body_timeout %>;
-<%- end -%>
-<%- if @client_body_temp_path -%>
-  client_body_temp_path <%= @client_body_temp_path %>;
-<%- end -%>
 <%- if @client_header_buffer_size -%>
   client_header_buffer_size <%= @client_header_buffer_size %>;
 <%- end -%>
 <%- if @client_header_timeout -%>
   client_header_timeout <%= @client_header_timeout %>;
-<%- end -%>
-<%- if @client_max_body_size -%>
-  client_max_body_size <%= @client_max_body_size %>;
 <%- end -%>

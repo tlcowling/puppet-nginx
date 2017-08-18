@@ -17,9 +17,7 @@ worker_rlimit_nofile <$= @worker_rlimit_nofile %>;
 <%- if @worker_directory -%>
 worker_directory <$= @worker_directory %>;
 <%- end -%>
-<%- if @master_process && @master_process != 'off' -%>
+<%- if @master_process -%>
 master_process on;
-<%- else -%>
-master_process off;
 <%- end -%>
 

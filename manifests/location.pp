@@ -60,5 +60,27 @@ define nginx::location (
   Optional[Variant[String, Integer] $types_hash_bucket_size = undef,
   Optional[Variant[String, Integer] $types_hash_max_size = undef,
 ) inherits nginx::config {
+
+  concat { "/etc/nginx/servers.d/${name}.conf":
+    ensure_newline => true,
+  }
+
+  concat::fragment{ "${name}_server_head":
+    content => 'server {',
+    target  => "/etc/nginx/servers.d/${name}.conf",
+    order   => '00',
+  }
+
+  concat::fragment{ "${name}_server_conf":
+    content => template('nginx/server/shared.erb'),
+    target  => "/etc/nginx/servers.d/${name}.conf",
+    order   => '01',
+  }
+
+  concat::fragment{ "${name}_server_bottom":
+    content => '}',
+    target  => "/etc/nginx/servers.d/${name}.conf",
+    order   => '02',
+  }
 }
 
