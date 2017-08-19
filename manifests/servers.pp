@@ -11,11 +11,13 @@ class nginx::servers (
     owner   => $user,
   }
 
-  $servers.each |$servername, $srv| {
-    notice("Creating server ${srv}")
-    nginx::config::server { $servername:
-      listen => $srv['listen'],
-      locations => $srv['locations'],
+  if $servers {
+    $servers.each |$servername, $srv| {
+      notice("Creating server ${srv}")
+      nginx::config::server { $servername:
+        listen => $srv['listen'],
+        locations => $srv['locations'],
+      }
     }
   }
 

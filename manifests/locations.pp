@@ -10,6 +10,7 @@ class nginx::locations (
 		purge   => true,
 	}
 
+        if $location_configs {
 	$location_configs.each |$n, $config| {
 		notice($n, $config)
 		nginx::config::location { $n:
@@ -80,4 +81,5 @@ class nginx::locations (
 			variables_hash_max_size => $config["variables_hash_max_size"]
 		}
 	}
+        }
 }

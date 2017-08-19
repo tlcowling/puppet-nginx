@@ -1,5 +1,6 @@
+<%- if @thread_pools -%>
 <%- @thread_pools.map do |name, pool| -%>
 <%- pool_params = pool.map {|k,v| k.to_s+"="+v.to_s}.join(" ") -%>
 thread_pool <%= name %> <%= pool_params %>;
 <%- end -%>
-
+<%- end -%>

@@ -22,10 +22,12 @@ class nginx::access_control_lists inherits nginx::config{
 
   $acls = lookup('access_control_lists')
 
-  $acls.each |$aclname, $aclactions| {
-    notice("Writing acl for ${aclname}")
-    nginx::access_control_list { $aclname:
-      actions => $aclactions,
+  if $acls {
+    $acls.each |$aclname, $aclactions| {
+      notice("Writing acl for ${aclname}")
+      nginx::access_control_list { $aclname:
+        actions => $aclactions,
+      }
     }
   }
 }

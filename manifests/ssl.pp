@@ -11,10 +11,12 @@ class nginx::ssl (
     mode    => '0750',
   }
 
-  $ssl_configs.each |$n, $config| {
-  	nginx::config::ssl { $n:
-  		ssl => $config['ssl'],
-  		ssl_ciphers => $config['ssl_ciphers'],
-  	}
+  if $ssl_configs {
+    $ssl_configs.each |$n, $config| {
+      nginx::config::ssl { $n:
+        ssl => $config['ssl'],
+        ssl_ciphers => $config['ssl_ciphers'],
+      }
+    }
   }
 }
