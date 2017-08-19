@@ -2,6 +2,7 @@ class nginx {
   class { 'nginx::package':
     managed => true,
   }
+
   $config = lookup('config')
   if $config {
     notice('using hiera config:')
