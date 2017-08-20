@@ -110,16 +110,22 @@ class nginx::http (
     order   => '02',
   }
 
+  concat::fragment { 'http_conf_types':
+    target  => 'http_conf',
+    content => '  include types.d/*;',
+    order   => '03',
+  }
+
   concat::fragment { 'http_conf_servers':
     target  => 'http_conf',
     content => '  include servers.d/*;',
-    order   => '03',
+    order   => '04',
   }
 
   concat::fragment { 'http_footer':
     target  => 'http_conf',
     content => '}',
-    order   => '04',
+    order   => '05',
   }
 
 }
