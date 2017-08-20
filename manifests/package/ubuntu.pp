@@ -36,6 +36,6 @@ class nginx::package::ubuntu inherits nginx::package {
   } else {
     package { $packagename:
       ensure => $version,
-    } 
+    }
   }
 }

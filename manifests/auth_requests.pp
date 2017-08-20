@@ -12,8 +12,8 @@ class nginx::auth_requests (
 
    if $auth_request_configs {
      $auth_request_configs.each |$n, $v| {
-       nginx::config::auth_request { "${n}":
-         auth_request => $v['auth_request'],
+       nginx::config::auth_request { $n:
+         auth_request     => $v['auth_request'],
          auth_request_set => $v['auth_request_set'],
        }
      }

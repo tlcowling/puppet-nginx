@@ -6,12 +6,12 @@ class nginx::package (
   String $packagename = 'nginx',
 ) {
   case $operatingsystem {
-    'Ubuntu': { 
-       notice("ubuntu!")
-       include nginx::package::ubuntu 
+    'Ubuntu': {
+       notice('ubuntu!')
+       include nginx::package::ubuntu
     }
     'CentOS': {
-       notice("centos package!")
+       notice('centos package!')
        include nginx::package::centos
     }
     default: { fail("Unsupported operating system, I'm truly truly sorry") }

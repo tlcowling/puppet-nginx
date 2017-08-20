@@ -1,7 +1,7 @@
 class nginx::ssl (
   Optional[Hash] $ssl_configs = undef,
 ) inherits nginx::config {
-  
+
   file { "${base_directory}/ssl.d":
     ensure  => directory,
     recurse => true,
@@ -14,7 +14,7 @@ class nginx::ssl (
   if $ssl_configs {
     $ssl_configs.each |$n, $config| {
       nginx::config::ssl { $n:
-        ssl => $config['ssl'],
+        ssl         => $config['ssl'],
         ssl_ciphers => $config['ssl_ciphers'],
       }
     }

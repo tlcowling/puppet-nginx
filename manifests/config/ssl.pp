@@ -24,7 +24,7 @@ define nginx::config::ssl (
   Optional[Variant[String, Integer]] $ssl_verify_depth = undef,
 ) {
   notice("creating ssl config ${name}")
-  
+
   file { "${name} ssl config":
     ensure  => 'present',
     path    => "/etc/nginx/ssl.d/${name}",

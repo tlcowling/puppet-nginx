@@ -20,7 +20,7 @@ class nginx::config (
   Optional[String]                             $worker_directory = undef,
   Optional[Array[String]]                      $include = undef,
   Optional[Array[String]]                      $load_modules = undef,
-) {
+  ) {
   validate_absolute_path($base_directory)
 
   notice('Configuring nginx config')
@@ -45,62 +45,62 @@ class nginx::config (
   }
 
   exec { 'config_test':
-    path    => [ '/usr/local/bin' ],
-    command => '/bin/true',
+  path    => [ '/usr/local/bin' ],
+  command => '/bin/true',
     #command => "nginx -t -c ${base_directory}/nginx.conf",
   }
 
   concat { 'nginx_config':
-    ensure         => 'present',
-    owner          => $user,
-    group          => $group,
-    mode           => '0640',
-    path           => "${base_directory}/nginx.conf",
-    ensure_newline => true,
-    require        => File[$base_directory],
-    notify         => Exec['config_test'],
-  }
+  ensure         => 'present',
+  owner          => $user,
+  group          => $group,
+  mode           => '0640',
+  path           => "${base_directory}/nginx.conf",
+  ensure_newline => true,
+  require        => File[$base_directory],
+  notify         => Exec['config_test'],
+}
 
-  concat::fragment { 'nginx_config_header':
-    target  => 'nginx_config',
-    content => template('nginx/config/header.erb'),
-    order   => '00',
-  }
+concat::fragment { 'nginx_config_header':
+target  => 'nginx_config',
+content => template('nginx/config/header.erb'),
+order   => '00',
+}
 
-  concat::fragment { 'nginx_config_include_basics':
-    target  => 'nginx_config',
-    content => template('nginx/config/basic.erb'),
-    order   => '01',
-  }
+concat::fragment { 'nginx_config_include_basics':
+target  => 'nginx_config',
+content => template('nginx/config/basic.erb'),
+order   => '01',
+}
 
-  concat::fragment { 'nginx_config_include_workers':
-    target  => 'nginx_config',
-    content => template('nginx/config/worker.erb'),
-    order   => '02',
-  }
+concat::fragment { 'nginx_config_include_workers':
+target  => 'nginx_config',
+content => template('nginx/config/worker.erb'),
+order   => '02',
+}
 
-  concat::fragment { 'nginx_config_include_thread_pools':
-    target  => 'nginx_config',
-    content => template('nginx/config/thread_pools.erb'),
-    order   => '03',
-  }
+concat::fragment { 'nginx_config_include_thread_pools':
+target  => 'nginx_config',
+content => template('nginx/config/thread_pools.erb'),
+order   => '03',
+}
 
-  concat::fragment { 'nginx_config_include_debug_points':
-    target  => 'nginx_config',
-    content => template('nginx/config/debug.erb'),
-    order   => '04',
-  }
+concat::fragment { 'nginx_config_include_debug_points':
+target  => 'nginx_config',
+content => template('nginx/config/debug.erb'),
+order   => '04',
+}
 
-  concat::fragment { 'nginx_config_include_modules':
-    target  => 'nginx_config',
-    content => template('nginx/config/include_modules.erb'),
-    order   => '05',
-  }
+concat::fragment { 'nginx_config_include_modules':
+target  => 'nginx_config',
+content => template('nginx/config/include_modules.erb'),
+order   => '05',
+}
 
-  concat::fragment { 'nginx_config_include_includes':
-    target  => 'nginx_config',
-    content => template('nginx/config/includes.erb'),
-    order   => '06',
-  }
+concat::fragment { 'nginx_config_include_includes':
+target  => 'nginx_config',
+content => template('nginx/config/includes.erb'),
+order   => '06',
+}
 
 }

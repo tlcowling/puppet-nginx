@@ -13,7 +13,7 @@ class nginx::package::centos inherits nginx::package {
             priority => '1',
             descr    => 'nginx mainline repo',
             before   => Package[$packagename],
-         }  
+         }
          'stable': {
             yumrepo { 'nginx-release':
               baseurl  => "http://nginx.org/packages/${_os}/${::operatingsystemmajrelease}/\$basearch/",
@@ -32,6 +32,6 @@ class nginx::package::centos inherits nginx::package {
   } else {
     package { $packagename:
       ensure => $version,
-    } 
+    }
   }
 }

@@ -34,7 +34,7 @@ class nginx {
     notice('using default config')
     include nginx::config
   }
-  
+
   $http = lookup('http')
   if $http {
     notice('using hiera config:')
@@ -55,28 +55,28 @@ class nginx {
     notice('using default config')
     include nginx::http
   }
-  
+
   class { 'nginx::servers':
     servers => lookup('servers')
   }
-  
+
   class { 'nginx::locations':
     location_configs => lookup('locations')
   }
-  
+
   class { 'nginx::gzip':
     gzip_configs => lookup('gzip')
   }
-  
+
   class { 'nginx::ssl':
     ssl_configs => lookup('ssl')
   }
   # $servers = lookup('servers')
-  
+
   class { 'nginx::auth_requests':
     auth_request_configs => lookup('auth_requests')
   }
-  
+
   $events = lookup('events')
   if $events {
     class { 'nginx::events':
@@ -89,8 +89,8 @@ class nginx {
       worker_aio_requests => $events['worker_aio_requests'],
     }
   }
-  
-  
+
+
   include nginx::types
   include nginx::streams
   include nginx::access_control_lists

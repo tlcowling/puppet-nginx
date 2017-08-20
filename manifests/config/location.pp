@@ -3,26 +3,26 @@ define nginx::config::location (
   Optional[String] $alias = undef,
   Optional[
     Hash[
-    	Enum['method', 'allow', 'deny'],
-    	Variant[
-			Enum[
-			      'GET', 
-			      'HEAD', 
-			      'POST', 
-			      'PUT', 
-			      'DELETE', 
-			      'MKCOL', 
-			      'COPY', 
-			      'MOVE', 
-			      'OPTIONS', 
-			      'PROPFIND', 
-			      'PROPPATCH', 
-			      'LOCK', 
-			      'UNLOCK', 
-			      'PATHCH'
-			    ],
-			Array[String]
-		]	
+      Enum['method', 'allow', 'deny'],
+      Variant[
+      Enum[
+            'GET',
+            'HEAD',
+            'POST',
+            'PUT',
+            'DELETE',
+            'MKCOL',
+            'COPY',
+            'MOVE',
+            'OPTIONS',
+            'PROPFIND',
+            'PROPPATCH',
+            'LOCK',
+            'UNLOCK',
+            'PATHCH'
+          ],
+      Array[String]
+    ]
     ]
   ] $limit_except = undef,
   Optional[Boolean] $internal = undef,
@@ -90,37 +90,37 @@ define nginx::config::location (
 ) {
 
     concat { "/etc/nginx/locations.d/${name}":
-		ensure_newline => true,
-	}
+    ensure_newline => true,
+  }
 
-	concat::fragment { "/etc/nginx/locations.d/${name}_location_name":
-		target  => "/etc/nginx/locations.d/${name}",
-		content => template('nginx/location/name.erb'),
-		order   => '00',
-	}
+  concat::fragment { "/etc/nginx/locations.d/${name}_location_name":
+    target  => "/etc/nginx/locations.d/${name}",
+    content => template('nginx/location/name.erb'),
+    order   => '00',
+  }
 
-	concat::fragment { "/etc/nginx/locations.d/${name}_location":
-		target  => "/etc/nginx/locations.d/${name}",
-		content => template('nginx/location/location.erb'),
-		order   => '01',
-	}
+  concat::fragment { "/etc/nginx/locations.d/${name}_location":
+    target  => "/etc/nginx/locations.d/${name}",
+    content => template('nginx/location/location.erb'),
+    order   => '01',
+  }
 
-	concat::fragment { "/etc/nginx/locations.d/${name}_shared":
-		target  => "/etc/nginx/locations.d/${name}",
-		content => template('nginx/shared/shared.erb'),
-		order   => '02',
-	}
+  concat::fragment { "/etc/nginx/locations.d/${name}_shared":
+    target  => "/etc/nginx/locations.d/${name}",
+    content => template('nginx/shared/shared.erb'),
+    order   => '02',
+  }
 
-	concat::fragment { "/etc/nginx/locations.d/${name}_acls":
-		target  => "/etc/nginx/locations.d/${name}",
-		content => template('nginx/location/acls.erb'),
-		order   => '03',
-	}
+  concat::fragment { "/etc/nginx/locations.d/${name}_acls":
+    target  => "/etc/nginx/locations.d/${name}",
+    content => template('nginx/location/acls.erb'),
+    order   => '03',
+  }
 
-	concat::fragment { "/etc/nginx/locations.d/${name}_bottom":
-		target  => "/etc/nginx/locations.d/${name}",
-		content => "}",
-		order   => '04',
-	}
+  concat::fragment { "/etc/nginx/locations.d/${name}_bottom":
+    target  => "/etc/nginx/locations.d/${name}",
+    content => '}',
+    order   => '04',
+  }
 }
 
