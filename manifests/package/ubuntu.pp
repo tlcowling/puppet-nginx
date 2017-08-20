@@ -1,7 +1,7 @@
 class nginx::package::ubuntu inherits nginx::package {
   notice ("PACKAGE IS ${packagename}")
   notice ("PACKAGE IS ${version}")
-  notice ("PACKAGE IS ${rekease}")
+  notice ("PACKAGE IS ${release}")
 
   if $managed {
     notice('using managed packages')
