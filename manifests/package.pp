@@ -3,7 +3,7 @@ class nginx::package (
   String $version = latest,
   Enum['stable', 'mainline'] $release = 'stable',
   Boolean $managed = true,
-  String $packagename = 'nginx-full',
+  String $packagename = 'nginx',
 ) {
   case $operatingsystem {
     'Ubuntu': { 

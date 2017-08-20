@@ -3,6 +3,8 @@ class nginx {
     managed => true,
   }
 
+  include nginx::service
+
   $config = lookup('config')
   if $config {
     notice('using hiera config:')
