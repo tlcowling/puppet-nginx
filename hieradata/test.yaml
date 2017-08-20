@@ -1,4 +1,8 @@
 ---
+# Configure package details
+nginx::package::version: latest
+nginx::package::release: mainline
+
 # Define an nginx config
 config:
   user: nginx

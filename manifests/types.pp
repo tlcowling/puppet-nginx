@@ -19,10 +19,11 @@ class nginx::types (
     require => File["${base_directory}/types.d"],
   }
 
-  if types_configs {
-    types_configs.each |$n, $config| {
-      
-
+  if $types_configs {
+    $types_configs.each |$n, $config| {
+      nginx::config::type { $n:
+        lines => $config['lines'],
+      } 
     }
   }
 }

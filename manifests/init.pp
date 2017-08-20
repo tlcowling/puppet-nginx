@@ -1,11 +1,4 @@
 class nginx {
-  class { 'nginx::package':
-    managed => true,
-  }
-
-  include nginx::service
-  include nginx::types
-
   $config = lookup('config')
   if $config {
     notice('using hiera config:')
@@ -35,6 +28,15 @@ class nginx {
     notice('using default config')
     include nginx::config
   }
+
+  class { 'nginx::package':
+    managed => true,
+  }
+
+  include nginx::service
+  include nginx::types
+
+  
 
   $http = lookup('http')
   if $http {
