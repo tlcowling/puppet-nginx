@@ -4,6 +4,7 @@ class nginx {
   }
 
   include nginx::service
+  include nginx::types
 
   $config = lookup('config')
   if $config {
@@ -91,7 +92,6 @@ class nginx {
   }
 
 
-  include nginx::types
   include nginx::streams
   include nginx::access_control_lists
 }

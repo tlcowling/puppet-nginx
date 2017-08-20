@@ -18,7 +18,7 @@ ssl_engine <%= @ssl_engine %>;
 <%- end -%>
 
 include http.conf;
-include events.conf;
+include events.d/*;
 
 stream {
   include streams.d/*;

@@ -1,0 +1,5 @@
+type {
+<%- @lines.each {|mimetype, extension| -%>
+  <%= mimetype %>        <%= extension %>
+<%- } -%>
+} 
