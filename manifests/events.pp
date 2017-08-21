@@ -9,11 +9,19 @@ class nginx::events (
 ) inherits nginx::config {
   notice('Configuring nginx events')
 
-  file { "${base_directory}/events.conf":
+  file { "${base_directory}/events.d":
+    ensure => 'directory',
+    owner   => $user,
+    group   => $group,
+    mode    => '0750',
+  }
+
+  file { "${base_directory}/events.d/events.conf":
     owner   => $user,
     group   => $group,
     mode    => '0750',
     content => template('nginx/events/events.erb'),
+    require => File["${base_directory}/events.d"],
   }
 
 }

@@ -1,0 +1,11 @@
+<%- if @set_real_ip_from -%>
+<%-   @set_real_ip_from.each {|ip| -%>
+set_real_ip_from <%= ip %>;
+<%-   } -%>
+<%- end -%>
+<%- if @real_ip_header -%>
+real_ip_header <%= @real_ip_header %>;
+<%- end -%>
+<%- if @real_ip_recursive -%>
+real_ip_recursive on;
+<%- end -%>

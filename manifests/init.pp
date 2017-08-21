@@ -96,4 +96,12 @@ class nginx {
 
   include nginx::streams
   include nginx::access_control_lists
+  
+  $realips = lookup('realips')
+  notice($realips)
+  
+  class { 'nginx::realips':
+    realip_configs => $realips
+  }
+  
 }

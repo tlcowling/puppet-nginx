@@ -62,6 +62,7 @@ define nginx::config::server(
   Optional[Boolean] $etag = undef,
   Optional[Enum['off','exact','before']] $if_modified_since = undef,
   Optional[Boolean] $ignore_invalid_headers = undef,
+  Optional[String] $index = undef,
   Optional[String] $keepalive_disable = undef,
   Optional[Integer] $keepalive_requests = undef,
   Optional[Variant[String, Integer]] $keepalive_timeout = undef,
