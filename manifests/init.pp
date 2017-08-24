@@ -1,5 +1,5 @@
 class nginx {
-  $config = lookup('config')
+  $config = lookup('config') |$key| { notice("This key is $key") }
   if $config {
     notice('using hiera config:')
     notice($config)
@@ -38,7 +38,7 @@ class nginx {
 
   
 
-  $http = lookup('http')
+  $http = lookup('http')|$key| { notice("This key is $key") }
   if $http {
     notice('using hiera config:')
     notice($http)
@@ -60,27 +60,26 @@ class nginx {
   }
 
   class { 'nginx::servers':
-    servers => lookup('servers')
+    servers => lookup('servers')|$key| { notice("This key is $key") }
   }
 
   class { 'nginx::locations':
-    location_configs => lookup('locations')
+    location_configs => lookup('locations')|$key| { notice("This key is $key") }
   }
 
   class { 'nginx::gzip':
-    gzip_configs => lookup('gzip')
+    gzip_configs => lookup('gzip')|$key| { notice("This key is $key") }
   }
 
   class { 'nginx::ssl':
-    ssl_configs => lookup('ssl')
+    ssl_configs => lookup('ssl')|$key| { notice("This key is $key") }
   }
-  # $servers = lookup('servers')
 
   class { 'nginx::auth_requests':
     auth_request_configs => lookup('auth_requests')
   }
 
-  $events = lookup('events')
+  $events = lookup('events') |$key| { notice("This key is $key") }
   if $events {
     class { 'nginx::events':
       worker_connections  => $events['worker_connections'],
@@ -97,11 +96,17 @@ class nginx {
   include nginx::streams
   include nginx::access_control_lists
   
-  $realips = lookup('realips')
-  notice($realips)
+  $realips = lookup('realips') |$key| { notice("This key is $key") }
   
   class { 'nginx::realips':
     realip_configs => $realips
   }
-  
+
+  $access_logs = lookup('access_logs') |$key| {
+    notice("This key is $key")
+  }
+  notice("What is access log in this case? ${access_logs}")
+  class { 'nginx::access_logs':
+    access_logs_configs => $access_logs,
+  }
 }

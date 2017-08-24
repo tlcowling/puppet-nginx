@@ -3,11 +3,11 @@
 <%- @listen['options'].each {|k, v| -%>
 <%-   if k.is_a? Hash -%>
 <%-     options << k.collect{|x, option_value| -%>
-<%#-       This is a fix for the yaml values which come in as true to get converted to on/off -%>
+<%#-      This is a fix for the yaml values which come in as true to get converted to on/off -%>
 <%-       if (option_value.is_a? TrueClass or option_value.is_a? FalseClass) -%>
 <%-         option_value = option_value ? 'on' : 'off' -%>
 <%-       end -%>
-<%-		  x.to_s + "=" + option_value.to_s -%>
+<%-       x.to_s + "=" + option_value.to_s -%>
 <%-     }.join(" ")-%>
 <%-   else -%>
 <%-     options << k -%>

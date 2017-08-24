@@ -1,9 +1,65 @@
-tlcowling-nginx
+puppet-nginx
 =======
 
-I've used variants of this personally for some time, but I figured it was finally time to give back to the community.  Currently I'm just working with the load_balancing capacity of nginx.
+A puppet module to configure nginx on linux systems.
 
-Example hiera config: ```hieradata/test.yaml``` 
+Usage
+-----
+
+Place this directory structure in your puppet modules
+Ensure nginx is included in your manifest or included in whatever mechanism you use, i.e ```hiera_include```
+
+
+### Site manifest
+```puppet
+# site.pp
+include nginx
+```
+
+### Hiera sample example
+```puppet
+# common.yaml
+---
+classes:
+  - ...whatever other classes you include...
+  - nginx
+```
+
+
+Examples
+--------
+
+### Default installation
+Install the latest version of nginx, using a managed repository and ensure that the service is running with default configuration:
+
+```yaml
+# An empty hiera yaml configuration is enough for this
+# the module will install with defaults
+```
+
+### Modify the nginx base config
+
+```yaml
+
+```
+
+### Create a sample ssl configuration and apply it to a server
+```yaml
+
+```
+
+### And much more!
+
+See hieradata/test.yaml...
+
+Motivation
+----------
+
+The use case here is 
+
+I've used variants of this personally for some time, but I figured it was finally time to give back to the community!
+
+The canonical hiera config example: ```hieradata/test.yaml``` 
 
 Development
 -----------
@@ -12,14 +68,9 @@ To dev on this you can change puppet code and then run
 
 ```make test```
 
-todo:
+Todo (future versions):
+----
 
 healthchecks
-rate limits? :)
-
-(the rest of nginx)
-config
-events
-servers
-locations
-puppet-strings doc
+config logic, more than just param validation, which params make more sense together.
+acceptance tests
