@@ -1,24 +1,13 @@
-define nginx::access_control_list (
-  Hash[Enum['allow','deny'], Array[String]] $actions
-  
-) {
-  notice ($actions)
-  file { "/etc/nginx/acls.d/${name}":
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => template('nginx/access_control_list.erb'),
-  }
-}
-
-class nginx::access_control_lists inherits nginx::config{
-  file { '/etc/nginx/acls.d':
+class nginx::access_control_lists (
+  Optional[String] $access_control_lists_directory = 'access_control_lists',
+) inherits nginx::config{
+  file { "${base_directory}/${includes_directory}/${access_control_lists_directory}":
     ensure  => 'directory',
     recurse => true,
     purge   => true,
+    owner   => $user,
     group   => $group,
     mode    => '0750',
-    owner   => $user,
   }
 
   $acls = lookup('access_control_lists')
@@ -26,7 +15,7 @@ class nginx::access_control_lists inherits nginx::config{
   if $acls {
     $acls.each |$aclname, $aclactions| {
       notice("Writing acl for ${aclname}")
-      nginx::access_control_list { $aclname:
+      nginx::config::access_control_list { $aclname:
         actions => $aclactions,
       }
     }
