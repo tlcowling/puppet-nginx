@@ -8,18 +8,19 @@ define nginx::config::gzip (
   Optional[Enum['off', 'expired', 'no-cache', 'no-store', 'private', 'no_last_modified', 'no_etag', 'auth', 'any']] $gzip_proxied = undef,
   Optional[String] $gzip_types = undef,
   Optional[Boolean] $gzip_vary = undef,
-  Optional[String] $owner = $::nginx::params::user,
-  Optional[String] $group = $::nginx::params::group,
-  Optional[String] $mode = $::nginx::params::mode,
-  Optional[String] $base_directory = $::nginx::params::base_directory
+  Optional[String] $owner = $::nginx::config::user,
+  Optional[String] $group = $::nginx::config::group,
+  Optional[String] $mode = $::nginx::config::mode,
+  Optional[String] $base_directory = $::nginx::config::base_directory,
+  Optional[String] $includes_directory = $::nginx::config::includes_directory,
+  Optional[String] $gzip_directory = $::nginx::gzip::include_directory,
 ) {
-  notice("configuring ${name} gzip configuration")
 
-  file { "gzip_config_${name}":
-    path    => "/etc/nginx/gzip.d/${name}",
-    mode   => $mode,
-    owner  => $owner,
-    group  => $group,
+  file { "Gzip Config ${name}":
+    path    => "${base_directory}/${includes_directory}/${gzip_directory}/${name}",
+    mode    => $mode,
+    owner   => $owner,
+    group   => $group,
     content => template('nginx/gzip/gzip.erb'),
   }
 }

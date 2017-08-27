@@ -1,7 +1,8 @@
 class nginx::gzip (
   Optional[Hash] $gzip_configs = undef,
+  Optional[String] $include_directory = 'gzip',
 ) inherits nginx::config {
-  file { "${base_directory}/gzip.d":
+  file { "${base_directory}/${includes_directory}/${include_directory}":
     ensure  => directory,
     recurse => true,
     purge   => true,

@@ -177,3 +177,11 @@ realips:
       - trees
     real_ip_header: X-Real-IP
     real_ip_recursive: on
+
+limits:
+  limit001:
+    limit_req_zone:
+      zone: testzone
+      burst: 10
+      nodelay: true
+    limit_req_log_level: info
