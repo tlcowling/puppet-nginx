@@ -16,14 +16,18 @@
 define nginx::config::auth_request(
   Optional[String] $auth_request = undef,
   Optional[Hash[String, String]] $auth_request_set = undef,
+  Optional[String] $owner = $::nginx::params::user,
+  Optional[String] $group = $::nginx::params::group,
+  Optional[String] $mode = $::nginx::params::mode,
+  Optional[String] $base_directory = $::nginx::params::base_directory
 ){
   notice('Creating Auth Request Config...')
 
   file { "/etc/nginx/auth_requests.d/${name}":
     path    => "/etc/nginx/auth_requests.d/${name}",
-    mode    => '0750',
-    owner   => 'nginx',
-    group   => 'nginx',
+    mode   => $mode,
+    owner  => $owner,
+    group  => $group,
     content => template('nginx/auth_request/auth_request.erb'),
   }
 

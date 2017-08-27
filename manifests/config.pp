@@ -1,9 +1,10 @@
 class nginx::config (
   Variant[String, Integer]                     $worker_processes = 'auto',
-  String                                       $base_directory = '/etc/nginx',
   String                                       $pid   = '/var/run/nginx.pid',
-  String                                       $user  = 'nginx',
-  String                                       $group = 'nginx',
+  String                                       $base_directory = $::nginx::params::base_directory,
+  String                                       $user  = $::nginx::params::user,
+  String                                       $group = $::nginx::params::group,
+  String                                       $mode  = $::nginx::params::mode,
   Optional[Hash[String, Hash[Enum['threads','max_queue'], Integer]]] $thread_pools = undef,
   Optional[String]                             $timer_resolution = undef,
   Optional[String]                             $ssl_engine = undef,
@@ -40,6 +41,8 @@ class nginx::config (
     ensure  => directory,
     owner   => $user,
     group   => $group,
+    recurse => true,
+    purge   => true,
     mode    => '0750',
     require => User[$user],
   }

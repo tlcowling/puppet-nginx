@@ -16,13 +16,17 @@ define nginx::config::realip (
   Optional[Array[String]] $set_real_ip_from = undef,
   Optional[String] $real_ip_header = undef,
   Optional[Boolean] $real_ip_recursive = undef,
+  Optional[String] $owner = $::nginx::params::user,
+  Optional[String] $group = $::nginx::params::group,
+  Optional[String] $mode = $::nginx::params::mode,
+  Optional[String] $base_directory = $::nginx::params::base_directory
 ) {
 
   file { "/etc/nginx/realip.d/${name}":
     path    => "/etc/nginx/realip.d/${name}",
-    mode    => '0750',
-    owner   => 'nginx',
-    group   => 'nginx',
+    mode   => $mode,
+    owner  => $owner,
+    group  => $group,
     content => template('nginx/realip/realip.erb'),
   }
 }

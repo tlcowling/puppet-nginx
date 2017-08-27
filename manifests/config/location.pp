@@ -88,10 +88,17 @@ define nginx::config::location (
   Optional[Variant[Integer,String]] $variables_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
   Optional[Array[String]] $access_control_lists = undef,
+  Optional[String] $owner = $::nginx::params::user,
+  Optional[String] $group = $::nginx::params::group,
+  Optional[String] $mode = $::nginx::params::mode,
+  Optional[String] $base_directory = $::nginx::params::base_directory
 ) {
 
-    concat { "/etc/nginx/locations.d/${name}":
+  concat { "/etc/nginx/locations.d/${name}":
     ensure_newline => true,
+    mode   => $mode,
+    owner  => $owner,
+    group  => $group,
   }
 
   concat::fragment { "/etc/nginx/locations.d/${name}_location_name":

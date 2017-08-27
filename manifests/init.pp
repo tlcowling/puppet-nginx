@@ -1,4 +1,5 @@
 class nginx {
+  include nginx::params
   $config = lookup('config') |$key| { notice("This key is $key") }
   if $config {
     notice('using hiera config:')
@@ -35,8 +36,6 @@ class nginx {
 
   include nginx::service
   include nginx::types
-
-  
 
   $http = lookup('http')|$key| { notice("This key is $key") }
   if $http {
@@ -106,7 +105,7 @@ class nginx {
     notice("This key is $key")
   }
   notice("What is access log in this case? ${access_logs}")
-  class { 'nginx::access_logs':
-    access_logs_configs => $access_logs,
-  }
+  # class { 'nginx::access_logs':
+  #   access_logs_configs => $access_logs,
+  # }
 }

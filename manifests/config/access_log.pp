@@ -28,30 +28,34 @@ define nginx::config::access_log(
       Variant[String, Integer]
     ]
   ] $access_log = undef,
-  Optional[
-    Hash[
-      String,
-      Hash[
-        Enum['escape', 'format'],
-        String
-      ]
-    ]
-  ] $log_format = undef,
-  Optional[
-    Hash[
-      String,
-      Hash[
-        Enum['max','inactive','min_uses','valid'],
-        String
-      ]
-    ]
-  ] $open_log_file_cache = undef,
+  # Optional[
+  #   Hash[
+  #     String,
+  #     Hash[
+  #       Enum['escape', 'format'],
+  #       String
+  #     ]
+  #   ]
+  # ] $log_format = undef,
+  # Optional[
+  #   Hash[
+  #     String,
+  #     Hash[
+  #       Enum['max','inactive','min_uses','valid'],
+  #       String
+  #     ]
+  #   ]
+  # ] $open_log_file_cache = undef,
+  Optional[String] $owner = $::nginx::params::user,
+  Optional[String] $group = $::nginx::params::group,
+  Optional[String] $mode = $::nginx::params::mode,
+  Optional[String] $base_directory = $::nginx::params::base_directory
 ) {
-  file { "/etc/nginx/access_logs.d/${name}":
+  file { "${base_directory}/access_logs.d/${name}":
     ensure => 'present',
-    mode   => '0640',
-    owner  => 'nginx',
-    group  => 'nginx',
+    mode   => $mode,
+    owner  => $owner,
+    group  => $group,
     content => template('nginx/log/access_log.erb'),
   }
 }

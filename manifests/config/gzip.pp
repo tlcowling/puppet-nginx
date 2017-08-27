@@ -8,12 +8,18 @@ define nginx::config::gzip (
   Optional[Enum['off', 'expired', 'no-cache', 'no-store', 'private', 'no_last_modified', 'no_etag', 'auth', 'any']] $gzip_proxied = undef,
   Optional[String] $gzip_types = undef,
   Optional[Boolean] $gzip_vary = undef,
+  Optional[String] $owner = $::nginx::params::user,
+  Optional[String] $group = $::nginx::params::group,
+  Optional[String] $mode = $::nginx::params::mode,
+  Optional[String] $base_directory = $::nginx::params::base_directory
 ) {
   notice("configuring ${name} gzip configuration")
 
   file { "gzip_config_${name}":
     path    => "/etc/nginx/gzip.d/${name}",
-    mode    => '0750',
+    mode   => $mode,
+    owner  => $owner,
+    group  => $group,
     content => template('nginx/gzip/gzip.erb'),
   }
 }

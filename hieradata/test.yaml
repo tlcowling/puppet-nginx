@@ -2,6 +2,7 @@
 # Configure package details
 nginx::package::version: latest
 nginx::package::release: mainline
+nginx::package::managed: false
 
 # Define an nginx config
 config:
@@ -20,6 +21,10 @@ config:
   master_process: off
   pcre_jit: off
 
+access_logs:
+  tom:
+    access_log: 
+      path: /var/log/nginx/nginx.log
 
 # define a http block
 http:

@@ -3,9 +3,9 @@ define nginx::config::type (
 ) {
   if $lines {
     file { "/etc/nginx/types.d/${name}":
-      owner   => 'nginx',
-      group   => 'nginx',
-      mode    => '0640',
+      mode   => $mode,
+    owner  => $owner,
+    group  => $group,
       content => template('nginx/types/types.erb'),
     }
   }

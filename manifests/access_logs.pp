@@ -4,9 +4,9 @@ class nginx::access_logs (
   file { "access logs directory":
     ensure => 'directory',
     path   => "${base_directory}/access_logs.d",
-    owner  => $user,
+    owner  => $suser,
     group  => $group,
-    mode   => '0750',
+    mode   => $mode,
   }
 
   if $access_logs_configs {
