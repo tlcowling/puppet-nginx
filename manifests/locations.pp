@@ -79,7 +79,8 @@ class nginx::locations (
         types_hash_max_size           => $config["types_hash_max_size"],
         underscores_in_headers        => $config["underscores_in_headers"],
         variables_hash_bucket_size    => $config["variables_hash_bucket_size"],
-        variables_hash_max_size       => $config["variables_hash_max_size"]
+        variables_hash_max_size       => $config["variables_hash_max_size"],
+        custom                        => $config["custom"],
       }
     }
   }

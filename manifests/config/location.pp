@@ -94,6 +94,7 @@ define nginx::config::location (
   Optional[String] $base_directory = $::nginx::config::base_directory,
   Optional[String] $includes_directory = $::nginx::config::includes_directory,
   Optional[String] $locations_directory = $::nginx::locations::locations_directory,
+  Optional[Array[String]] $custom = undef,
 ) {
   $config_location = "${base_directory}/${includes_directory}/${locations_directory}/${name}"
   concat { $config_location:
@@ -121,16 +122,22 @@ define nginx::config::location (
     order   => '02',
   }
 
+  concat::fragment { "/etc/nginx/locations.d/${name}_custom":
+    target  => $config_location,
+    content => template('nginx/shared/custom.erb'),
+    order   => '03',
+  }
+
   concat::fragment { "/etc/nginx/locations.d/${name}_acls":
     target  => $config_location,
     content => template('nginx/location/acls.erb'),
-    order   => '03',
+    order   => '04',
   }
 
   concat::fragment { "/etc/nginx/locations.d/${name}_bottom":
     target  => $config_location,
     content => '}',
-    order   => '04',
+    order   => '05',
   }
 }
 
