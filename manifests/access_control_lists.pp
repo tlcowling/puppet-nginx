@@ -1,5 +1,6 @@
 define nginx::access_control_list (
   Hash[Enum['allow','deny'], Array[String]] $actions
+  
 ) {
   notice ($actions)
   file { "/etc/nginx/acls.d/${name}":

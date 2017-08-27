@@ -1,8 +1,9 @@
 class nginx::realips (
   Optional[Hash] $realip_configs = undef,
+  Optional[String] $realips_directory = 'realips',
 ) inherits nginx::config {
   if $realip_configs {
-    file { "${base_directory}/realip.d":
+    file { "${base_directory}/${includes_directory}/${realips_directory}":
       ensure  => 'directory',
       mode    => '0750',
       owner   => $user,

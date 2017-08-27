@@ -18,6 +18,7 @@ class nginx::servers (
       nginx::config::server { $servername:
         listen    => $srv['listen'],
         locations => $srv['locations'],
+        includes  => $srv['includes'],
       }
     }
   }

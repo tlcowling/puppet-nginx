@@ -21,7 +21,7 @@ define nginx::config::auth_request(
   Optional[String] $mode = $::nginx::config::mode,
   Optional[String] $base_directory = $::nginx::config::base_directory,
   Optional[String] $includes_directory = $::nginx::config::includes_directory,
-  Optional[String] $auth_requests_directory = $::nginx::auth_requests::include_directory,
+  Optional[String] $auth_requests_directory = $::nginx::auth_requests::auth_requests_directory,
 ){
   notice('Creating Auth Request Config...')
 

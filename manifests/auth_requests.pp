@@ -1,10 +1,10 @@
 class nginx::auth_requests (
   Optional[Hash] $auth_request_configs = undef,
-  Optional[String] $include_directory = 'auth_requests',
+  Optional[String] $auth_requests_directory = 'auth_requests',
 ) inherits nginx::config {
 
   file { "Auth Requests Directory":
-    path    => "${base_directory}/${includes_directory}/${include_directory}",
+    path    => "${base_directory}/${includes_directory}/${auth_requests_directory}",
     ensure  => directory,
     mode    => '0750',
     recurse => true,

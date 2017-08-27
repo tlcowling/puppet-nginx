@@ -118,7 +118,10 @@ define nginx::config::server(
   Optional[String] $includes_directory = $::nginx::config::includes_directory,
   Optional[String] $servers_directory = $::nginx::servers::servers_directory,
 ) {
-  concat { "${base_directory}/${includes_directory}/${servers_directory}/${name}.conf":
+  
+  $server_config_name = "${base_directory}/${includes_directory}/${servers_directory}/${name}.conf"
+
+  concat { $server_config_name:
     ensure_newline => true,
     mode           => $mode,
     owner          => $owner,
@@ -127,31 +130,31 @@ define nginx::config::server(
 
   concat::fragment{ "${name}_server_head":
     content => 'server {',
-    target  => "/etc/nginx/servers.d/${name}.conf",
+    target  => $server_config_name,
     order   => '00',
   }
 
   concat::fragment{ "${name}_server_listen_conf":
     content => template('nginx/server/server.erb'),
-    target  => "/etc/nginx/servers.d/${name}.conf",
+    target  => $server_config_name,
     order   => '01',
   }
 
   concat::fragment{ "${name}_server_conf":
     content => template('nginx/shared/shared.erb'),
-    target  => "/etc/nginx/servers.d/${name}.conf",
+    target  => $server_config_name,
     order   => '02',
   }
 
   concat::fragment{ "${name}_server_locations":
     content => template('nginx/server/locations.erb'),
-    target  => "/etc/nginx/servers.d/${name}.conf",
+    target  => $server_config_name,
     order   => '03',
   }
 
   concat::fragment{ "${name}_server_bottom":
     content => '}',
-    target  => "/etc/nginx/servers.d/${name}.conf",
+    target  => $server_config_name,
     order   => '04',
   }
 }
