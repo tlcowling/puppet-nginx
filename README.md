@@ -56,6 +56,9 @@ Motivation
 ----------
 
 The use case here is 
+- to work towards a fully hiera backed nginx config to allow a mechanism for a dynamic change to an nginx config in systems that are highly dependent on puppet
+- a way to compose reusable bits of nginx config using the hierarchical concepts of hiera!
+
 
 I've used variants of this personally for some time, but I figured it was finally time to give back to the community!
 
