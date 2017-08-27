@@ -89,8 +89,6 @@ servers:
         - so_keepalive: on
     locations:
       - tom01
-    #custom:
-     # - a line to test;
   tom02:
     listen:
       host: localhost
