@@ -40,6 +40,7 @@ define nginx::config::access_log(
       Variant[Integer, String],
     ]
   ] $open_log_file_cache = undef,
+  Optional[Array[String]] $custom = undef,
   Optional[String] $owner = $::nginx::config::user,
   Optional[String] $group = $::nginx::config::group,
   Optional[String] $mode = $::nginx::config::mode,

@@ -45,10 +45,14 @@ http:
   open_file_cache:
     max: 1
     inactive: 20
+  custom:
+    - i like giblets;
 
 # define an events block
 events:
   worker_connections: 2024
+  custom:
+    - its important to add more giblets;
   # debug_connection:
     # - localhost
     # - 127.0.0.1:3432

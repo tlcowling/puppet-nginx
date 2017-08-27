@@ -84,12 +84,14 @@ class nginx::http (
   Optional[Boolean] $underscores_in_headers = undef,
   Optional[Variant[Integer,String]] $variables_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
+
+  Optional[Array[String]] $custom = undef,
 ) inherits nginx::config {
   concat { 'http_conf':
-    path           => "${base_directory}/http.conf",
+    path           => "${base_directory}/${includes_directory}/http.conf",
     owner          => $user,
     group          => $group,
-    mode           => '0750',
+    mode           => '0644',
     ensure_newline => true,
   }
 
@@ -111,22 +113,34 @@ class nginx::http (
     order   => '02',
   }
 
+  concat::fragment { 'http_conf_custom':
+    target  => 'http_conf',
+    content => template('nginx/shared/shared.erb'),
+    order   => '03',
+  }
+
+  concat::fragment { 'http_conf_shared':
+    target  => 'http_conf',
+    content => template('nginx/shared/custom.erb'),
+    order   => '04',
+  }
+
   concat::fragment { 'http_conf_types':
     target  => 'http_conf',
     content => '  include types.d/*;',
-    order   => '03',
+    order   => '05',
   }
 
   concat::fragment { 'http_conf_servers':
     target  => 'http_conf',
     content => '  include servers.d/*;',
-    order   => '04',
+    order   => '06',
   }
 
   concat::fragment { 'http_footer':
     target  => 'http_conf',
     content => '}',
-    order   => '05',
+    order   => '07',
   }
 
 }

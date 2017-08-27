@@ -1,5 +1,6 @@
 define nginx::config::access_control_list (
   Hash[Enum['allow','deny'], Array[String]] $actions,
+  Optional[Array[String]] $custom = undef,
   Optional[String] $owner = $::nginx::config::user,
   Optional[String] $group = $::nginx::config::group,
   Optional[String] $mode = $::nginx::config::mode,

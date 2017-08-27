@@ -109,7 +109,7 @@ define nginx::config::server(
   Optional[Variant[Integer,String]] $variables_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
 
-  Optional[Array[String]] $includes = undef,
+  Optional[Array[String]] $custom = undef,
   Optional[Array[String]] $locations = undef,
   Optional[String] $owner = $::nginx::config::user,
   Optional[String] $group = $::nginx::config::group,
@@ -146,15 +146,21 @@ define nginx::config::server(
     order   => '02',
   }
 
+  concat::fragment{ "${name}_server_conf_custom":
+    content => template('nginx/shared/custom.erb'),
+    target  => $server_config_name,
+    order   => '03',
+  }
+
   concat::fragment{ "${name}_server_locations":
     content => template('nginx/server/locations.erb'),
     target  => $server_config_name,
-    order   => '03',
+    order   => '04',
   }
 
   concat::fragment{ "${name}_server_bottom":
     content => '}',
     target  => $server_config_name,
-    order   => '04',
+    order   => '05',
   }
 }

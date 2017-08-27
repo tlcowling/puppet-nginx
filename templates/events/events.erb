@@ -1,4 +1,3 @@
-events {
   <%- if @worker_connections -%>
   worker_connections <%= @worker_connections %>;
   <%- end -%>
@@ -22,4 +21,3 @@ events {
   <%- if @worker_aio_requests -%>
   worker_aio_requests <%= @worker_aio_requests %>;
   <%- end -%>
-}

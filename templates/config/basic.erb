@@ -16,9 +16,9 @@ timer_resolution <%= @timer_resolution %>;
 <%- if @ssl_engine -%>
 ssl_engine <%= @ssl_engine %>;
 <%- end -%>
-
-include http.conf;
-include events.d/*;
+<%- conf_dir = scope.lookupvar('::nginx::config::includes_directory') -%>
+include <%= conf_dir %>/http.conf;
+include <%= conf_dir %>/events.conf;
 
 stream {
   include streams.d/*;

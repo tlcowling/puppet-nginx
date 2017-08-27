@@ -52,6 +52,7 @@ class nginx {
       client_header_timeout        => $http['client_header_timeout'],
       client_max_body_size         => $http['client_max_body_size'],
       open_file_cache              => $http['open_file_cache'],
+      custom                       => $http['custom'],
     }
   } else {
     notice('using default config')
@@ -88,6 +89,7 @@ class nginx {
       debug_connection    => $events['debug_connection'],
       use                 => $events['use'],
       worker_aio_requests => $events['worker_aio_requests'],
+      custom              => $events['custom'],
     }
   }
 

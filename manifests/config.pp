@@ -114,6 +114,12 @@ class nginx::config (
     order   => '05',
   }
 
+  concat::fragment { 'nginx_config_include_custom':
+    target  => 'nginx_config',
+    content => template('nginx/shared/custom.erb'),
+    order   => '05',
+  }
+
   concat::fragment { 'nginx_config_include_includes':
     target  => 'nginx_config',
     content => template('nginx/config/includes.erb'),

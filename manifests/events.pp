@@ -6,22 +6,39 @@ class nginx::events (
   Optional[Array[String]]                      $debug_connection    = [],
   Optional[String]                             $use                 = undef,
   Optional[Integer]                            $worker_aio_requests = undef,
+  Optional[Array[String]]                      $custom = undef,
 ) inherits nginx::config {
   notice('Configuring nginx events')
 
-  file { "${base_directory}/events.d":
-    ensure => 'directory',
+  concat { 'events':
+    path    => "${base_directory}/${includes_directory}/events.conf",
+    ensure_newline => true,
     owner   => $user,
     group   => $group,
-    mode    => '0750',
+    mode    => '0640',
   }
 
-  file { "${base_directory}/events.d/events.conf":
-    owner   => $user,
-    group   => $group,
-    mode    => '0750',
+  concat::fragment { 'events_top':
+    target  => 'events',
+    content => 'events {',
+    order   => '00',
+  }
+
+  concat::fragment { 'events_body':
+    target  => 'events',
     content => template('nginx/events/events.erb'),
-    require => File["${base_directory}/events.d"],
+    order   => '01'
   }
 
+  concat::fragment { 'events_custom':
+    target  => 'events',
+    content => template('nginx/shared/custom.erb'),
+    order   => '02',
+  }
+
+  concat::fragment { 'events_bottom':
+    target  => 'events',
+    content => '}',
+    order   => '99',
+  }
 }
