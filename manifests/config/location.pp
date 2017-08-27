@@ -88,13 +88,15 @@ define nginx::config::location (
   Optional[Variant[Integer,String]] $variables_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
   Optional[Array[String]] $access_control_lists = undef,
-  Optional[String] $owner = $::nginx::params::user,
-  Optional[String] $group = $::nginx::params::group,
-  Optional[String] $mode = $::nginx::params::mode,
-  Optional[String] $base_directory = $::nginx::params::base_directory
+  Optional[String] $owner = $::nginx::config::user,
+  Optional[String] $group = $::nginx::config::group,
+  Optional[String] $mode = $::nginx::config::mode,
+  Optional[String] $base_directory = $::nginx::config::base_directory,
+  Optional[String] $includes_directory = $::nginx::config::includes_directory,
+  Optional[String] $locations_directory = $::nginx::locations::locations_directory,
 ) {
-
-  concat { "/etc/nginx/locations.d/${name}":
+  $config_location = "${base_directory}/${includes_directory}/${locations_directory}/${name}"
+  concat { $config_location:
     ensure_newline => true,
     mode   => $mode,
     owner  => $owner,
@@ -102,31 +104,31 @@ define nginx::config::location (
   }
 
   concat::fragment { "/etc/nginx/locations.d/${name}_location_name":
-    target  => "/etc/nginx/locations.d/${name}",
+    target  => $config_location,
     content => template('nginx/location/name.erb'),
     order   => '00',
   }
 
   concat::fragment { "/etc/nginx/locations.d/${name}_location":
-    target  => "/etc/nginx/locations.d/${name}",
+    target  => $config_location,
     content => template('nginx/location/location.erb'),
     order   => '01',
   }
 
   concat::fragment { "/etc/nginx/locations.d/${name}_shared":
-    target  => "/etc/nginx/locations.d/${name}",
+    target  => $config_location,
     content => template('nginx/shared/shared.erb'),
     order   => '02',
   }
 
   concat::fragment { "/etc/nginx/locations.d/${name}_acls":
-    target  => "/etc/nginx/locations.d/${name}",
+    target  => $config_location,
     content => template('nginx/location/acls.erb'),
     order   => '03',
   }
 
   concat::fragment { "/etc/nginx/locations.d/${name}_bottom":
-    target  => "/etc/nginx/locations.d/${name}",
+    target  => $config_location,
     content => '}',
     order   => '04',
   }

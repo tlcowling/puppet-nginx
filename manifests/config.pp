@@ -53,6 +53,8 @@ class nginx::config (
     owner   => $user,
     group   => $group,
     mode    => '0750',
+    recurse => true,
+    purge   => true,
     require => [ 
       User[$user], 
       File[$base_directory],
