@@ -111,16 +111,18 @@ define nginx::config::server(
 
   Optional[Array[String]] $includes = undef,
   Optional[Array[String]] $locations = undef,
-  Optional[String] $owner = $::nginx::params::user,
-  Optional[String] $group = $::nginx::params::group,
-  Optional[String] $mode = $::nginx::params::mode,
-  Optional[String] $base_directory = $::nginx::params::base_directory
+  Optional[String] $owner = $::nginx::config::user,
+  Optional[String] $group = $::nginx::config::group,
+  Optional[String] $mode = $::nginx::config::mode,
+  Optional[String] $base_directory = $::nginx::config::base_directory,
+  Optional[String] $includes_directory = $::nginx::config::includes_directory,
+  Optional[String] $servers_directory = $::nginx::servers::servers_directory,
 ) {
-  concat { "/etc/nginx/servers.d/${name}.conf":
+  concat { "${base_directory}/${includes_directory}/${servers_directory}/${name}.conf":
     ensure_newline => true,
-    mode   => $mode,
-    owner  => $owner,
-    group  => $group,
+    mode           => $mode,
+    owner          => $owner,
+    group          => $group,
   }
 
   concat::fragment{ "${name}_server_head":

@@ -22,16 +22,18 @@ define nginx::config::ssl (
   Optional[String] $ssl_trusted_certificate = undef,
   Optional[Enum['on', 'off', 'optional', 'optional_no_ca']] $ssl_verify_client = undef,
   Optional[Variant[String, Integer]] $ssl_verify_depth = undef,
-  Optional[String] $owner = $::nginx::params::user,
-  Optional[String] $group = $::nginx::params::group,
-  Optional[String] $mode = $::nginx::params::mode,
-  Optional[String] $base_directory = $::nginx::params::base_directory
+  Optional[String] $owner = $::nginx::config::user,
+  Optional[String] $group = $::nginx::config::group,
+  Optional[String] $mode = $::nginx::config::mode,
+  Optional[String] $base_directory = $::nginx::config::base_directory,
+  Optional[String] $includes_directory = $::nginx::config::includes_directory,
+  Optional[String] $ssl_directory = $::nginx::ssl::ssl_directory,
 ) {
-  notice("creating ssl config ${name}")
+  notice("SSL Config ${name}")
 
   file { "${name} ssl config":
     ensure  => 'present',
-    path    => "/etc/nginx/ssl.d/${name}",
+    path    => "${base_directory}/${includes_directory}/${ssl_directory}/${name}",
     content => template('nginx/ssl/ssl.erb'),
     mode   => $mode,
     owner  => $owner,

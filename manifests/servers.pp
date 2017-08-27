@@ -1,8 +1,9 @@
 class nginx::servers (
   $servers,
+  Optional[String] $servers_directory = 'servers',
 ) inherits nginx::config {
 
-  file { "${base_directory}/servers.d":
+  file { "${base_directory}/${includes_directory}/${servers_directory}":
     ensure  => 'directory',
     recurse => true,
     purge   => true,
