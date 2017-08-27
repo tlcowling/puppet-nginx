@@ -3,4 +3,5 @@ class nginx::params{
   $group = 'nginx'
   $mode = '0750'
   $base_directory = '/etc/nginx/'
+  $includes_directory = 'conf.d/'
 }

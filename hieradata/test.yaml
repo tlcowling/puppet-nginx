@@ -25,6 +25,19 @@ access_logs:
   tom:
     access_log: 
       path: /var/log/nginx/nginx.log
+      buffer: 32k
+      flush: 10
+      gzip: 9
+      format: special
+    log_format:
+      name: bytes_sent
+      escape: json
+      format: $bytes_sent - $connection
+    open_log_file_cache:
+      max: 10
+      min_uses: 3
+      valid: 10
+      inactive: 10
 
 # define a http block
 http:

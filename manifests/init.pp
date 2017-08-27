@@ -105,7 +105,7 @@ class nginx {
     notice("This key is $key")
   }
   notice("What is access log in this case? ${access_logs}")
-  # class { 'nginx::access_logs':
-  #   access_logs_configs => $access_logs,
-  # }
+  class { 'nginx::access_logs':
+    access_logs_configs => $access_logs,
+  }
 }

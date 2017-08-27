@@ -7,7 +7,7 @@
 #     auth_request => '/auth',
 #     auth_request_set => {
 #       "giblets"       => "fresh",
-#	    "special_token" => "Kenny Explosion",
+#	      "special_token" => "Kenny Explosion",
 #     }
 #   }
 #
@@ -16,18 +16,20 @@
 define nginx::config::auth_request(
   Optional[String] $auth_request = undef,
   Optional[Hash[String, String]] $auth_request_set = undef,
-  Optional[String] $owner = $::nginx::params::user,
-  Optional[String] $group = $::nginx::params::group,
-  Optional[String] $mode = $::nginx::params::mode,
-  Optional[String] $base_directory = $::nginx::params::base_directory
+  Optional[String] $owner = $::nginx::config::user,
+  Optional[String] $group = $::nginx::config::group,
+  Optional[String] $mode = $::nginx::config::mode,
+  Optional[String] $base_directory = $::nginx::config::base_directory,
+  Optional[String] $includes_directory = $::nginx::config::includes_directory,
+  Optional[String] $auth_requests_directory = $::nginx::auth_requests::include_directory,
 ){
   notice('Creating Auth Request Config...')
 
-  file { "/etc/nginx/auth_requests.d/${name}":
-    path    => "/etc/nginx/auth_requests.d/${name}",
-    mode   => $mode,
-    owner  => $owner,
-    group  => $group,
+  file { "Auth Request ${name}":
+    path    => "${base_directory}/${includes_directory}/${auth_requests_directory}/${name}",
+    mode    => $mode,
+    owner   => $owner,
+    group   => $group,
     content => template('nginx/auth_request/auth_request.erb'),
   }
 

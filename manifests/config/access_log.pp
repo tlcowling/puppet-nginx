@@ -28,30 +28,28 @@ define nginx::config::access_log(
       Variant[String, Integer]
     ]
   ] $access_log = undef,
-  # Optional[
-  #   Hash[
-  #     String,
-  #     Hash[
-  #       Enum['escape', 'format'],
-  #       String
-  #     ]
-  #   ]
-  # ] $log_format = undef,
-  # Optional[
-  #   Hash[
-  #     String,
-  #     Hash[
-  #       Enum['max','inactive','min_uses','valid'],
-  #       String
-  #     ]
-  #   ]
-  # ] $open_log_file_cache = undef,
-  Optional[String] $owner = $::nginx::params::user,
-  Optional[String] $group = $::nginx::params::group,
-  Optional[String] $mode = $::nginx::params::mode,
-  Optional[String] $base_directory = $::nginx::params::base_directory
+  Optional[
+    Hash[
+      Enum['name', 'escape', 'format'],
+      String
+    ]
+  ] $log_format = undef,
+  Optional[
+    Hash[
+      Enum['max','inactive','min_uses','valid'],
+      Variant[Integer, String],
+    ]
+  ] $open_log_file_cache = undef,
+  Optional[String] $owner = $::nginx::config::user,
+  Optional[String] $group = $::nginx::config::group,
+  Optional[String] $mode = $::nginx::config::mode,
+  Optional[String] $base_directory = $::nginx::config::base_directory,
+  Optional[String] $includes_directory = $::nginx::config::includes_directory,
+  Optional[String] $access_log_directory = $::nginx::access_logs::access_log_directory,
 ) {
-  file { "${base_directory}/access_logs.d/${name}":
+  notice("do we even get here?")
+  file { "Access Log ${name}":
+    path   => "${base_directory}/${includes_directory}/${access_log_directory}/${name}",
     ensure => 'present',
     mode   => $mode,
     owner  => $owner,

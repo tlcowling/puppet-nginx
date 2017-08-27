@@ -1,3 +1,33 @@
-<%=  @access_log
-     @log_format
-     @open_log_file_cache %>
+<%- if @access_log -%>
+<%- options = { -%>
+<%-  'format' => @access_log['format'], -%>
+<%-  'buffer' => @access_log['buffer'], -%>
+<%-  'gzip'   => @access_log['gzip'], -%>
+<%-  'flush'  => @access_log['flush'], -%>
+<%-  'if'     => @access_log['if'] -%>
+<%- } -%>
+<%- options_line = options.collect{|k,v| "#{k}=#{v}" if !v.nil? }.compact.join(" ") -%>
+  <%- if @access_log['path'] -%>
+access_log <%= @access_log['path'] %> <%= options_line %>;
+  <%- end -%>
+<%- end -%>
+<%- if @log_format -%>
+<%- log_format_line = [ -%>
+<%-   @log_format['name'], -%>
+<%- ]-%>
+<%- log_format_line << "escape=#{@log_format['escape']}" if !@log_format['escape'].nil? -%>
+<%- log_format_line << "\'#{@log_format['format']}\'" -%>
+log_format <%= log_format_line.join(" ") %>;
+<%- end -%>
+<%- if @open_log_file_cache -%>
+<%-   if @open_log_file_cache['max'] -%>
+<%-     open_log_file_cache_options = { -%>
+<%-      'max'      => @open_log_file_cache['max'], -%>
+<%-      'inactive' => @open_log_file_cache['inactive'], -%>
+<%-      'min_uses' => @open_log_file_cache['min_uses'], -%>
+<%-      'valid'    => @open_log_file_cache['valid'], -%>
+<%-     } -%>
+<%-     open_log_file_cache_option_line = open_log_file_cache_options.collect{|k,v| "#{k}=#{v}" if !v.nil? }.compact.join(" ") -%>
+<%-   end -%>
+open_log_file_cache <%= open_log_file_cache_option_line %>;
+<%- end -%>

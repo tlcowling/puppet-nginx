@@ -2,15 +2,16 @@ class nginx::config (
   Variant[String, Integer]                     $worker_processes = 'auto',
   String                                       $pid   = '/var/run/nginx.pid',
   String                                       $base_directory = $::nginx::params::base_directory,
+  String                                       $includes_directory = $::nginx::params::includes_directory,
   String                                       $user  = $::nginx::params::user,
   String                                       $group = $::nginx::params::group,
   String                                       $mode  = $::nginx::params::mode,
   Optional[Hash[String, Hash[Enum['threads','max_queue'], Integer]]] $thread_pools = undef,
   Optional[String]                             $timer_resolution = undef,
   Optional[String]                             $ssl_engine = undef,
-  Optional[Boolean] $daemon = undef,
-  Optional[Boolean] $master_process = undef,
-  Optional[Boolean] $pcre_jit = undef,
+  Optional[Boolean]                            $daemon = undef,
+  Optional[Boolean]                            $master_process = undef,
+  Optional[Boolean]                            $pcre_jit = undef,
   Optional[Enum['abort', 'stop']]              $debug_points = undef,
   Optional[String]                             $lock_file = undef,
   Optional[String]                             $worker_cpu_affinity = undef,
@@ -38,13 +39,24 @@ class nginx::config (
   }
 
   file { $base_directory:
-    ensure  => directory,
+    ensure  => 'directory',
     owner   => $user,
     group   => $group,
     recurse => true,
     purge   => true,
     mode    => '0750',
     require => User[$user],
+  }
+
+  file { "${base_directory}/${includes_directory}": 
+    ensure  => 'directory',
+    owner   => $user,
+    group   => $group,
+    mode    => '0750',
+    require => [ 
+      User[$user], 
+      File[$base_directory],
+    ],
   }
 
   exec { 'config_test':
