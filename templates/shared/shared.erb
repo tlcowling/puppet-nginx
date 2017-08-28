@@ -40,6 +40,11 @@
 <%- if @disable_symlinks -%>
   disable_symlinks <%= @disable_symlinks %>;
 <%- end -%>
+<%- if @error_log -%>
+<%-   @error_log.each {|el| -%>
+error_log <%= el['path'] %> <%= el['level'] %>;
+<%-   } -%>
+<%- end -%>
 <%- if @etag-%>
   etag on;
 <%- end -%>

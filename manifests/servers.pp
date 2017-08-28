@@ -2,7 +2,7 @@ class nginx::servers (
   Optional[String] $dirname = 'servers',
 ) inherits nginx::config {
 
-  $servers = lookup('servers')|$key| { notice("This key is ${key}") }
+  $servers = lookup('servers')|$key| { notice("Misisng hiera information for ${key}") }
 
   file { "${base_directory}/${includes_directory}/${dirname}":
     ensure  => 'directory',
@@ -14,12 +14,13 @@ class nginx::servers (
   }
 
   if $servers {
-    $servers.each |$servername, $srv| {
-      notice("Creating server ${srv}")
-      nginx::config::server { $servername:
-        listen    => $srv['listen'],
-        locations => $srv['locations'],
-        custom    => $srv['custom'],
+    $servers.each |$n, $config| {
+      notice("Creating server ${config}")
+      nginx::config::server { $n:
+        listen    => $config['listen'],
+        locations => $config['locations'],
+        error_log => $config['error_log'],
+        custom    => $config['custom'],
       }
     }
   }

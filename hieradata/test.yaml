@@ -193,6 +193,11 @@ locations:
     alias: bob
     max_ranges: 1
     internal: true
+    error_log:
+      - path: /var/log/nginx/tom01_debug.log
+        level: debug
+      - path: /var/log/nginx/tom01_crit.log
+        level: crit
     access_control_lists:
       - deny_evil_corp
 

@@ -40,6 +40,14 @@ define nginx::config::location (
   Optional[String] $directio = undef,
   Optional[String] $directio_alignment = undef,
   Optional[Pattern[/^off$|^on$|^if_not_owner/]] $disable_symlinks = undef,
+  Optional[
+    Array[
+      Hash[
+        Enum['path', 'level'],
+        String,
+      ]
+    ]
+  ] $error_log = undef,
   Optional[String] $error_page = undef,
   Optional[Boolean] $etag = undef,
   Optional[Enum['off','exact','before']] $if_modified_since = undef,

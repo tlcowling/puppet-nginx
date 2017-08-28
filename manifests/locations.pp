@@ -36,6 +36,7 @@ class nginx::locations (
         directio_alignment            => $config["directio_alignment"],
         disable_symlinks              => $config["disable_symlinks"],
         error_page                    => $config["error_page"],
+        error_log                     => $config["error_log"],
         etag                          => $config["etag"],
         if_modified_since             => $config["if_modified_since"],
         ignore_invalid_headers        => $config["ignore_invalid_headers"],

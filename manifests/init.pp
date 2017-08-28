@@ -1,7 +1,7 @@
 class nginx {
   include nginx::params
 
-  $config = lookup('config') |$key| { notice('User did not provide a hiera config, using defaults') }
+  $config = lookup('config') |$key| { notice('User did not provide a hiera config for ${key}, using defaults') }
   if $config {
     class { 'nginx::config':
       user                    => $config['user'],
@@ -14,6 +14,7 @@ class nginx {
       load_modules            => $config['load_modules'],
       lock_file               => $config['lock_file'],
       pcre_jit                => $config['pcre_jit'],
+      error_log               => $config['error_log'],
       master_process          => $config['master_process'],
       worker_priority         => $config['worker_priority'],
       worker_shutdown_timeout => $config['worker_shutdown_timeout'],
@@ -42,7 +43,7 @@ class nginx {
   include nginx::locations
   include nginx::gzip
   include nginx::ssl
-  include nginx::auth_requests  
+  include nginx::auth_requests
   include nginx::streams
   include nginx::access_control_lists
   include nginx::realips
@@ -61,6 +62,7 @@ class nginx {
       directio                      => $http['directio'],
       directio_alignment            => $http['directio_alignment'],
       disable_symlinks              => $http['disable_symlinks'],
+      error_log                     => $config['error_log'],
       error_page                    => $http['error_page'],
       etag                          => $http['etag'],
       if_modified_since             => $http['if_modified_since'],

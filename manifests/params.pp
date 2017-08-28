@@ -5,5 +5,13 @@ class nginx::params{
   $base_directory = '/etc/nginx'
   $includes_directory = 'conf.d'
   $streams_directory = 'streams.d'
-  $default_log_directory = '/var/log/nginx'
+  $log_directory = '/var/log/nginx'
+  $error_log_name = 'error.log'
+  $error_log_level = 'error'
+  $error_log = [
+    {
+      'path' => "${log_directory}/${error_log_name}",
+      'level' => $error_log_level
+    }
+  ]
 }

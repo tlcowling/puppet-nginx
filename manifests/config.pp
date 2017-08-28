@@ -7,6 +7,14 @@ class nginx::config (
   Optional[String]                             $user  = $::nginx::params::user,
   Optional[String]                             $group = $::nginx::params::group,
   Optional[String]                             $mode  = $::nginx::params::mode,
+  Optional[
+    Array[
+      Hash[
+        Enum['path', 'level'],
+        String,
+      ]
+    ]
+  ]                                            $error_log = $::nginx::params::error_log,
   Optional[Hash[String, Hash[Enum['threads','max_queue'], Integer]]] $thread_pools = undef,
   Optional[String]                             $timer_resolution = undef,
   Optional[String]                             $ssl_engine = undef,

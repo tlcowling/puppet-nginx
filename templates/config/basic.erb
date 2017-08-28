@@ -13,6 +13,11 @@ pcre_jit on;
 <%- if @timer_resolution -%>
 timer_resolution <%= @timer_resolution %>;
 <%- end -%>
+<%- if @error_log -%>
+<%-   @error_log.each {|el| -%>
+error_log <%= el['path'] %> <%= el['level'] %>;
+<%-   } -%>
+<%- end -%>
 <%- if @ssl_engine -%>
 ssl_engine <%= @ssl_engine %>;
 <%- end -%>
