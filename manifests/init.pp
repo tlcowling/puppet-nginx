@@ -62,7 +62,7 @@ class nginx {
       directio                      => $http['directio'],
       directio_alignment            => $http['directio_alignment'],
       disable_symlinks              => $http['disable_symlinks'],
-      error_log                     => $config['error_log'],
+      error_log                     => $http['error_log'],
       error_page                    => $http['error_page'],
       etag                          => $http['etag'],
       if_modified_since             => $http['if_modified_since'],

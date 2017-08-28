@@ -75,6 +75,7 @@ class nginx::locations (
         server_names_hash_bucket_size => $config["server_names_hash_bucket_size"],
         server_names_hash_max_size    => $config["server_names_hash_max_size"],
         server_tokens                 => $config["server_tokens"],
+        try_files                     => $config["try_files"],
         tcp_nodelay                   => $config["tcp_nodelay"],
         tcp_nopush                    => $config["tcp_nopush"],
         types_hash_bucket_size        => $config["types_hash_bucket_size"],
