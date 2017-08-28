@@ -21,6 +21,12 @@ config:
   master_process: off
   pcre_jit: off
 
+proxies:
+  tom01:
+    custom:
+      - i love lines;
+      - so do you;
+
 access_logs:
   tom:
     access_log: 

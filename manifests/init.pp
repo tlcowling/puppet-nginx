@@ -39,6 +39,7 @@ class nginx {
   include nginx::types
   include nginx::service
   include nginx::servers
+  include nginx::proxies
   
 
   $http = lookup('http')|$key| { notice("This key is $key") }
