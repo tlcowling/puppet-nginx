@@ -93,10 +93,10 @@ class nginx::http (
   Optional[Array[String]] $custom = undef,
 ) inherits nginx::config {
   concat { 'http_conf':
-    path           => "${base_directory}/${includes_directory}/http.conf",
-    owner          => $user,
-    group          => $group,
-    mode           => '0644',
+    path  => "${base_directory}/${includes_directory}/http.conf",
+    owner => $user,
+    group => $group,
+    mode  => '0644',
   }
 
   concat::fragment { 'http_header':

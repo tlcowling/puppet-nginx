@@ -24,7 +24,7 @@ class nginx::types (
     $types_configs.each |$n, $config| {
       nginx::config::type { $n:
         lines => $config['lines'],
-      } 
+      }
     }
   }
 }

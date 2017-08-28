@@ -1,7 +1,8 @@
 class nginx::ssl (
-  Optional[Hash] $ssl_configs = undef,
   Optional[String] $ssl_directory = 'ssl',
 ) inherits nginx::config {
+
+  $ssl_configs = lookup('ssl')|$key| { notice("This key is ${key}") }
 
   file { "${base_directory}/${includes_directory}/${ssl_directory}":
     ensure  => directory,

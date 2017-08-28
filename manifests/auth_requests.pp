@@ -1,11 +1,12 @@
 class nginx::auth_requests (
-  Optional[Hash] $auth_request_configs = undef,
   Optional[String] $auth_requests_directory = 'auth_requests',
 ) inherits nginx::config {
 
-  file { "Auth Requests Directory":
-    path    => "${base_directory}/${includes_directory}/${auth_requests_directory}",
+  $auth_request_configs = lookup('auth_requests') |$key| { notice("No hiera data for ${key}") }
+
+  file { 'Auth Requests Directory':
     ensure  => directory,
+    path    => "${base_directory}/${includes_directory}/${auth_requests_directory}",
     mode    => '0750',
     recurse => true,
     purge   => true,

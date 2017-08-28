@@ -1,5 +1,4 @@
 class nginx::locations (
-  Optional[Hash] $location_configs = undef,
   Optional[String] $dirname = 'locations',
 ) inherits nginx::config {
   file { "${base_directory}/${includes_directory}/${dirname}":
@@ -10,6 +9,8 @@ class nginx::locations (
     recurse => true,
     purge   => true,
   }
+
+  $location_configs = lookup('locations')|$key| { notice("This key is ${key}") }
 
   if $location_configs {
     $location_configs.each |$n, $config| {

@@ -5,4 +5,5 @@ class nginx::params{
   $base_directory = '/etc/nginx'
   $includes_directory = 'conf.d'
   $streams_directory = 'streams.d'
+  $default_log_directory = '/var/log/nginx'
 }

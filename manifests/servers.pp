@@ -2,7 +2,7 @@ class nginx::servers (
   Optional[String] $dirname = 'servers',
 ) inherits nginx::config {
 
-  $servers = lookup('servers')|$key| { notice("This key is $key") }
+  $servers = lookup('servers')|$key| { notice("This key is ${key}") }
 
   file { "${base_directory}/${includes_directory}/${dirname}":
     ensure  => 'directory',

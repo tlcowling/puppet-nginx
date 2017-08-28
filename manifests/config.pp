@@ -49,15 +49,15 @@ class nginx::config (
     require => User[$user],
   }
 
-  file { "${base_directory}/${includes_directory}": 
+  file { "${base_directory}/${includes_directory}":
     ensure  => 'directory',
     owner   => $user,
     group   => $group,
     mode    => '0750',
     recurse => true,
     purge   => true,
-    require => [ 
-      User[$user], 
+    require => [
+      User[$user],
       File[$base_directory],
     ],
   }

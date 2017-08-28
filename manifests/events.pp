@@ -11,11 +11,11 @@ class nginx::events (
   notice('Configuring nginx events')
 
   concat { 'events':
-    path    => "${base_directory}/${includes_directory}/events.conf",
+    path           => "${base_directory}/${includes_directory}/events.conf",
     ensure_newline => true,
-    owner   => $user,
-    group   => $group,
-    mode    => '0640',
+    owner          => $user,
+    group          => $group,
+    mode           => '0640',
   }
 
   concat::fragment { 'events_top':

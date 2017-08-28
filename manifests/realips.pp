@@ -1,8 +1,9 @@
 class nginx::realips (
-  Optional[Hash] $realip_configs = undef,
   Optional[String] $realips_directory = 'realips',
 ) inherits nginx::config {
-  if $realip_configs {
+  $realips_configs = lookup('realips') |$key| { notice("This key is ${key}") }
+
+  if $realips_configs {
     file { "${base_directory}/${includes_directory}/${realips_directory}":
       ensure  => 'directory',
       mode    => '0750',
@@ -11,8 +12,8 @@ class nginx::realips (
       purge   => true,
       recurse => true,
     }
-  
-    $realip_configs.each |$n, $config| {
+
+    $realips_configs.each |$n, $config| {
       notice("Creating ${n} realip config")
       nginx::config::realip { $n:
         set_real_ip_from  => $config['set_real_ip_from'],

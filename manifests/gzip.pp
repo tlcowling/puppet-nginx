@@ -1,7 +1,9 @@
 class nginx::gzip (
-  Optional[Hash] $gzip_configs = undef,
   Optional[String] $include_directory = 'gzip',
 ) inherits nginx::config {
+
+  $gzip_configs = lookup('gzip')|$key| { notice("This key is ${key}") }
+
   file { "${base_directory}/${includes_directory}/${include_directory}":
     ensure  => directory,
     recurse => true,
