@@ -23,9 +23,66 @@ config:
 
 proxies:
   tom01:
-    custom:
-      - i love lines;
-      - so do you;
+    proxy_pass: http://localhost:8000
+    proxy_set_header:
+      Buttocks: fresh
+      Host: $host
+      X-Real-IP: $remote_addr
+    proxy_bind: $remote_addr transparent
+    proxy_buffers:
+      number: 8
+      size: 8k
+    proxy_buffer_size: 8k
+    proxy_buffering: true
+    proxy_cache: trevor
+    proxy_cache_background_update: on
+    proxy_cache_bypass:
+      - $cookie_nocache $arg_nocache$arg_comment
+      - proxy_cache_bypass $http_pragma $http_authorization;
+    proxy_cache_key: $scheme$proxy_host$request_uri
+    proxy_cache_convert_head: on
+    proxy_cache_lock: on
+    proxy_cache_lock_age: 10s
+    proxy_cache_lock_timeout: 10s
+    proxy_cache_max_range_offset: 100
+    proxy_cache_methods:
+      - GET
+      - HEAD
+      - POST
+    proxy_cache_min_uses: 2
+    proxy_cache_path:
+      path: /test
+      levels: 1:2
+      use_temp_path: on
+      keys_zone: trevor:10m
+      inactive: 10
+      max_size: 100
+    proxy_cache_revalidate: on
+    proxy_cache_use_stale:
+      - invalid_header
+      - http_403
+    proxy_cache_valid:
+      200 302: 10m
+      404: 1m
+      301: 1h
+      any: 1m
+    proxy_connect_timeout: 50s
+    proxy_cookie_domain: 
+      - localhost example.org
+      - ~\.([a-z]+\.[a-z]+)$ $1;
+    proxy_cookie_path:
+      /two: /
+      /three: /some$uri
+    proxy_force_ranges: on
+    proxy_http_version: 1.1
+    proxy_ignore_client_abort: on
+    proxy_ignore_headers:
+      - X-Accel-Expires
+      - X-Accel-Limit-Rate
+    proxy_intercept_errors: on
+    proxy_pass_request_body: on
+    proxy_pass_request_headers: on
+    proxy_read_timeout: 40s
 
 access_logs:
   tom:

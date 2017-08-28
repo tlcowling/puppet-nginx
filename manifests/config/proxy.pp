@@ -48,7 +48,7 @@ define nginx::config::proxy(
         'purger_sleep',
         'purger_threshold',
       ],
-      Variant[String, Integer]
+      Variant[String, Integer, Boolean]
     ]
   ] $proxy_cache_path = undef,
   Optional[Array[String]] $proxy_cache_purge = undef,
@@ -78,7 +78,7 @@ define nginx::config::proxy(
     ]
   ] $proxy_cache_valid = undef,
   Optional[Variant[Integer, String]] $proxy_connect_timeout = undef,
-  Optional[String] $proxy_cookie_domain = undef,
+  Optional[Array[String]] $proxy_cookie_domain = undef,
   Optional[
     Hash[
       String,
@@ -89,7 +89,7 @@ define nginx::config::proxy(
   Optional[Variant[Integer, String]] $proxy_headers_hash_bucket_size = undef,
   Optional[Variant[Integer, String]] $proxy_headers_hash_max_size = undef,
   Optional[Array[String]] $proxy_hide_header = undef,
-  Optional[Enum['1.0', '1.1']] $proxy_http_version = undef,
+  Optional[Variant[Float, String]] $proxy_http_version = undef,
   Optional[Boolean] $proxy_ignore_client_abort = undef,
   Optional[Array[String]] $proxy_ignore_headers = undef,
   Optional[Boolean] $proxy_intercept_errors = undef,

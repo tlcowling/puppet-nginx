@@ -1,1 +1,114 @@
-test
+<%- if @proxy_bind -%>
+proxy_bind <%= @proxy_bind %>;
+<%- end -%>
+<%- if @proxy_buffer_size -%>
+proxy_buffer_size <%= @proxy_buffer_size %>;
+<%- end -%>
+<%- if @proxy_buffering -%>
+proxy_buffering on;
+<%- end -%>
+<%- if @proxy_buffers -%>
+proxy_buffers <%= @proxy_buffers['number'] %> <%= @proxy_buffers['size'] %>;
+<%- end -%>
+<%- if @proxy_busy_buffers_size -%>
+proxy_busy_buffers_size <%= @proxy_busy_buffers_size %>;
+<%- end -%>
+<%- if @proxy_cache -%>
+proxy_cache <%= @proxy_cache %>;
+<%- end -%>
+<%- if @proxy_cache_background_update -%>
+proxy_cache_background_update on;
+<%- end -%>
+<%- if @proxy_cache_bypass -%>
+<%-   @proxy_cache_bypass.each {|b| -%>
+proxy_cache_bypass <%= b %>;
+<%-   } -%>
+<%- end -%>
+<%- if @proxy_cache_convert_head -%>
+proxy_cache_convert_head on;
+<%- end -%>
+<%- if @proxy_cache_key -%>
+proxy_cache_key <%= @proxy_cache_key %>
+<%- end -%>
+<%- if @proxy_cache_lock -%>
+proxy_cache_lock on;
+<%- end -%>
+<%- if @proxy_cache_lock_age -%>
+proxy_cache_lock_age <%= @proxy_cache_lock_age %>;
+<%- end -%>
+<%- if @proxy_cache_lock_timeout -%>
+proxy_cache_lock_timeout <%= @proxy_cache_lock_timeout %>;
+<%- end -%>
+<%- if @proxy_cache_max_range_offset -%>
+proxy_cache_max_range_offset <%= @proxy_cache_max_range_offset %>;
+<%- end -%>
+<%- if @proxy_cache_methods -%>
+proxy_cache_methods <%= @proxy_cache_methods.join(" ") %>;
+<%- end -%>
+<%- if @proxy_cache_min_uses -%>
+proxy_cache_min_uses <%= @proxy_cache_min_uses %>;
+<%- end -%>
+<%- if @proxy_cache_path -%>
+proxy_cache_path <%= @proxy_cache_path.collect{|k,v| "#{k}=#{v}"}.join(" ") %>;
+<%- end -%>
+<%- if @proxy_cache_purge -%>
+<%-   @proxy_cache_purge.each {|c| -%>
+proxy_cache_purge <%= c %>;
+<%-   } -%>
+<%- end -%>
+<%- if @proxy_cache_revalidate -%>
+proxy_cache_revalidate <%= @proxy_cache_revalidate %>;
+<%- end -%>
+<%- if @proxy_cache_use_stale -%>
+proxy_cache_use_stale <%= @proxy_cache_use_stale.join(" ") %>;
+<%- end -%>
+<%- if @proxy_cache_valid -%>
+<%-   @proxy_cache_valid.each {|k,v| -%>
+proxy_cache_valid <%= "#{k} #{v}" %>;
+<%-   } -%>
+<%- end -%>
+<%- if @proxy_connect_timeout -%>
+proxy_connect_timeout <%= @proxy_connect_timeout %>;
+<%- end -%>
+<%- if @proxy_cookie_domain -%>
+<%-   @proxy_cookie_domain.each {|v| -%>
+proxy_cookie_domain <%= v %>;
+<%-   } -%>
+<%- end -%>
+<%- if @proxy_cookie_path -%>
+<%-   @proxy_cookie_path.each {|k, v| -%>
+proxy_cookie_path <%= "#{k} #{v}" %>;
+<%-   } -%>
+<%- end -%>
+<%- if @proxy_force_ranges -%>
+proxy_force_ranges on;
+<%- end -%>
+<%- if @proxy_headers_hash_bucket_size -%>
+proxy_headers_hash_bucket_size <%= @proxy_headers_hash_bucket_size %>;
+<%- end -%>
+<%- if @proxy_headers_hash_max_size -%>
+proxy_headers_hash_max_size <%= @proxy_headers_hash_max_size %>;
+<%- end -%>
+<%- if @proxy_hide_header -%>
+proxy_hide_header <%= @proxy_hide_header %>;
+<%- end -%>
+<%- if @proxy_http_version -%>
+proxy_http_version <%= @proxy_http_version %>;
+<%- end -%>
+<%- if @proxy_ignore_client_abort -%>
+proxy_ignore_client_abort on;
+<%- end -%>
+<%- if @proxy_ignore_headers -%>
+<%-   @proxy_ignore_headers.each {|v| -%>
+proxy_ignore_headers <%= v %>;
+<%-   } -%>
+<%- end -%>
+<%- if @proxy_intercept_errors -%>
+proxy_intercept_errors on;
+<%- end -%>
+<%- if @proxy_limit_rate -%>
+proxy_limit_rate <%= @proxy_limit_rate %>;
+<%- end -%>
+<%- if @proxy_max_temp_file_size -%>
+proxy_max_temp_file_size <%= @proxy_max_temp_file_size %>;
+<%- end -%>
