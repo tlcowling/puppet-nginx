@@ -126,6 +126,16 @@
 <%- if @reset_timed_out_connection -%>
   reset_timed_out_connection on;
 <%- end -%>
+<%- if @resolver -%>
+<%-   resolver_line = [@resolver['addresses']] -%>
+<%-   if @resolver['valid'] -%>
+<%-     resolver_line << "valid=#{@resolver['valid']}" -%>
+<%-   end -%>
+<%-   if @resolver['ipv6'] -%>
+<%-     resolver_line << "ipv6=on" -%>
+<%-   end -%>
+  resolver <%= resolver_line.join(" ") %>;
+<%- end -%>
 <%- if @resolver_timeout -%>
   resolver_timeout <%= @resolver_timeout %>;
 <%- end -%>

@@ -68,7 +68,12 @@ define nginx::config::location (
   Optional[Variant[String,Integer]] $read_ahead = undef,
   Optional[Boolean] $recursive_error_pages = undef,
   Optional[Boolean] $reset_timedout_connection = undef,
-  Optional[String] $resolver = undef,
+    Optional[
+    Hash[
+      Enum['addresses', 'valid', 'ipv6'],
+      Variant[String, Integer, Boolean],
+    ]
+  ] $resolver = undef,
   Optional[String] $resolver_timeout = undef,
   Optional[String] $root = undef,
   Optional[Enum['all','any']] $satisfy = undef,

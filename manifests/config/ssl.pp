@@ -35,8 +35,8 @@ define nginx::config::ssl (
     ensure  => 'present',
     path    => "${base_directory}/${includes_directory}/${ssl_directory}/${name}",
     content => template('nginx/ssl/ssl.erb'),
-    mode   => $mode,
-    owner  => $owner,
-    group  => $group,
+    mode    => $mode,
+    owner   => $owner,
+    group   => $group,
   }
 }
