@@ -95,6 +95,7 @@ define nginx::config::location (
   Optional[Variant[String, Boolean]] $server_tokens = undef,
   Optional[Boolean] $tcp_nodelay = undef,
   Optional[Boolean] $tcp_nopush = undef,
+  Optional[String] $try_files = undef,
   Optional[Variant[Integer,String]] $types_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $types_hash_max_size = undef,
   Optional[Boolean] $underscores_in_headers = undef,

@@ -71,9 +71,8 @@ class nginx::config (
   }
 
   exec { 'config_test':
-    path    => [ '/usr/local/bin' ],
-    command => '/bin/true',
-    #command => "nginx -t -c ${base_directory}/nginx.conf",
+    path    => [ '/usr/local/bin', '/usr/sbin' ],
+    command => "nginx -t -c ${base_directory}/nginx.conf",
   }
 
   concat { 'nginx_config':
