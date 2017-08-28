@@ -1,5 +1,7 @@
 <%- if @access_control_lists -%>
+<%- conf_dir = scope.lookupvar('::nginx::config::includes_directory') -%>
+<%- acl_dir = scope.lookupvar('::nginx::access_control_lists::dirname') -%>
 <%- @access_control_lists.each { |acl| -%>
-  include acls.d/<%= acl %>;
+  include <%= conf_dir %>/<%= acl_dir %>/<%= acl %>;
 <%- } -%>
 <%- end -%>

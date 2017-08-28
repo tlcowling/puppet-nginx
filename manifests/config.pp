@@ -1,11 +1,12 @@
 class nginx::config (
-  Variant[String, Integer]                     $worker_processes = 'auto',
-  String                                       $pid   = '/var/run/nginx.pid',
-  String                                       $base_directory = $::nginx::params::base_directory,
-  String                                       $includes_directory = $::nginx::params::includes_directory,
-  String                                       $user  = $::nginx::params::user,
-  String                                       $group = $::nginx::params::group,
-  String                                       $mode  = $::nginx::params::mode,
+  Optional[Variant[String, Integer]]           $worker_processes = 'auto',
+  Optional[String]                             $pid   = '/var/run/nginx.pid',
+  Optional[String]                             $base_directory = $::nginx::params::base_directory,
+  Optional[String]                             $includes_directory = $::nginx::params::includes_directory,
+  Optional[String]                             $streams_directory = $::nginx::params::streams_directory,
+  Optional[String]                             $user  = $::nginx::params::user,
+  Optional[String]                             $group = $::nginx::params::group,
+  Optional[String]                             $mode  = $::nginx::params::mode,
   Optional[Hash[String, Hash[Enum['threads','max_queue'], Integer]]] $thread_pools = undef,
   Optional[String]                             $timer_resolution = undef,
   Optional[String]                             $ssl_engine = undef,
@@ -87,13 +88,13 @@ class nginx::config (
   concat::fragment { 'nginx_config_include_basics':
     target  => 'nginx_config',
     content => template('nginx/config/basic.erb'),
-    order   => '01',
+    order   => '02',
   }
 
   concat::fragment { 'nginx_config_include_workers':
     target  => 'nginx_config',
     content => template('nginx/config/worker.erb'),
-    order   => '02',
+    order   => '01',
   }
 
   concat::fragment { 'nginx_config_include_thread_pools':
@@ -117,13 +118,12 @@ class nginx::config (
   concat::fragment { 'nginx_config_include_custom':
     target  => 'nginx_config',
     content => template('nginx/shared/custom.erb'),
-    order   => '05',
+    order   => '06',
   }
 
   concat::fragment { 'nginx_config_include_includes':
     target  => 'nginx_config',
     content => template('nginx/config/includes.erb'),
-    order   => '06',
+    order   => '07',
   }
-
 }

@@ -1,7 +1,7 @@
 class nginx::access_control_lists (
-  Optional[String] $access_control_lists_directory = 'access_control_lists',
+  Optional[String] $dirname = 'access_control_lists',
 ) inherits nginx::config{
-  file { "${base_directory}/${includes_directory}/${access_control_lists_directory}":
+  file { "${base_directory}/${includes_directory}/${dirname}":
     ensure  => 'directory',
     recurse => true,
     purge   => true,

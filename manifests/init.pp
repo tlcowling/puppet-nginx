@@ -1,9 +1,8 @@
 class nginx {
   include nginx::params
-  $config = lookup('config') |$key| { notice("This key is $key") }
+
+  $config = lookup('config') |$key| { notice("User did not provide a hiera config, using defaults") }
   if $config {
-    notice('using hiera config:')
-    notice($config)
     class { 'nginx::config':
       user                    => $config['user'],
       group                   => $config['group'],
@@ -25,17 +24,22 @@ class nginx {
       timer_resolution        => $config['timer_resolution'],
       ssl_engine              => $config['ssl_engine'],
     }
-  } else {
-    notice('using default config')
-    include nginx::config
   }
 
-  class { 'nginx::package':
-    managed => true,
-  }
 
-  include nginx::service
+  contain nginx::params
+  contain nginx::package
+  contain nginx::service
+
+  Class['nginx::params'] ->
+  Class['nginx::package'] ->
+  Class['nginx::service']
+
+  include nginx::package
   include nginx::types
+  include nginx::service
+  include nginx::servers
+  
 
   $http = lookup('http')|$key| { notice("This key is $key") }
   if $http {
@@ -115,9 +119,7 @@ class nginx {
     include nginx::http
   }
 
-  class { 'nginx::servers':
-    servers => lookup('servers')|$key| { notice("This key is $key") }
-  }
+  
 
   class { 'nginx::locations':
     location_configs => lookup('locations')|$key| { notice("This key is $key") }

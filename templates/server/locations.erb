@@ -1,5 +1,7 @@
 <%- if @locations %>
+<%- conf_dir = scope.lookupvar('::nginx::config::includes_directory') -%>
+<%- locations_dir = scope.lookupvar('::nginx::locations::dirname') -%>
 <%- @locations.each {|location| -%>
-  include locations.d/<%= location %>;
+  include <%= conf_dir %>/<%= locations_dir %>/<%= location %>;
 <%- } -%>
 <%- end %>

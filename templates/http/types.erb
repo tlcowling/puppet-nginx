@@ -1,0 +1,3 @@
+<%- conf_dir = scope.lookupvar('::nginx::config::includes_directory') -%>
+<%- types_dir = scope.lookupvar('::nginx::types::dirname') -%>  
+  include <%= conf_dir %>/<%= types_dir %>/*;

@@ -9,9 +9,10 @@
 <%- if @proxy_bind != "" -%>
   proxy_bind <%= @proxy_bind %>;
 <%- end -%>
-<%- acl_dir = scope.lookupvar('::nginx::config::includes_directory') + '/' + scope.lookupvar('::nginx::access_control_lists::access_control_lists_directory') -%>
 <%- if @access_control_lists != [] -%>
+<%- conf_dir = scope.lookupvar('::nginx::config::includes_directory') -%>
+<%- acl_dir = scope.lookupvar('::nginx::access_control_lists::dirname') -%>
   <%- @access_control_lists.each { |acl| -%>
-  include <%= acl_dir %>/<%= acl %>;
+  include <%= conf_dir %>/<%= acl_dir %>/<%= acl %>;
   <%- } -%>
 <%- end -%>

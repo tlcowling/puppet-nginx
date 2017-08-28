@@ -2,7 +2,7 @@
 # Configure package details
 nginx::package::version: latest
 nginx::package::release: mainline
-nginx::package::managed: false
+nginx::package::managed: true
 
 # Define an nginx config
 config:

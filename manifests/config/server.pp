@@ -116,10 +116,10 @@ define nginx::config::server(
   Optional[String] $mode = $::nginx::config::mode,
   Optional[String] $base_directory = $::nginx::config::base_directory,
   Optional[String] $includes_directory = $::nginx::config::includes_directory,
-  Optional[String] $servers_directory = $::nginx::servers::servers_directory,
+  Optional[String] $dirname = $::nginx::servers::dirname,
 ) {
   
-  $server_config_name = "${base_directory}/${includes_directory}/${servers_directory}/${name}.conf"
+  $server_config_name = "${base_directory}/${includes_directory}/${dirname}/${name}.conf"
 
   concat { $server_config_name:
     ensure_newline => true,

@@ -92,7 +92,6 @@ class nginx::http (
     owner          => $user,
     group          => $group,
     mode           => '0644',
-    ensure_newline => true,
   }
 
   concat::fragment { 'http_header':
@@ -127,13 +126,13 @@ class nginx::http (
 
   concat::fragment { 'http_conf_types':
     target  => 'http_conf',
-    content => '  include types.d/*;',
+    content => template('nginx/http/types.erb'),
     order   => '05',
   }
 
   concat::fragment { 'http_conf_servers':
     target  => 'http_conf',
-    content => '  include servers.d/*;',
+    content => template('nginx/http/servers.erb'),
     order   => '06',
   }
 

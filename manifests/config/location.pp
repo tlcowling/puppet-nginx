@@ -5,7 +5,7 @@ define nginx::config::location (
     Hash[
       Enum['method', 'allow', 'deny'],
       Variant[
-      Enum[
+        Enum[
             'GET',
             'HEAD',
             'POST',
@@ -21,8 +21,8 @@ define nginx::config::location (
             'UNLOCK',
             'PATHCH'
           ],
-      Array[String]
-    ]
+        Array[String]
+      ]
     ]
   ] $limit_except = undef,
   Optional[Boolean] $internal = undef,
@@ -93,10 +93,10 @@ define nginx::config::location (
   Optional[String] $mode = $::nginx::config::mode,
   Optional[String] $base_directory = $::nginx::config::base_directory,
   Optional[String] $includes_directory = $::nginx::config::includes_directory,
-  Optional[String] $locations_directory = $::nginx::locations::locations_directory,
+  Optional[String] $dirname = $::nginx::locations::dirname,
   Optional[Array[String]] $custom = undef,
 ) {
-  $config_location = "${base_directory}/${includes_directory}/${locations_directory}/${name}"
+  $config_location = "${base_directory}/${includes_directory}/${dirname}/${name}"
   concat { $config_location:
     ensure_newline => true,
     mode   => $mode,

@@ -1,8 +1,9 @@
 class nginx::types (
   Optional $types_configs = undef,
+  Optional[String] $dirname = 'types'
 ) inherits nginx::config {
 
-  file { "${base_directory}/types.d":
+  file { "${base_directory}/${includes_directory}/${dirname}":
     ensure  => directory,
     recurse => true,
     purge   => true,
@@ -11,12 +12,12 @@ class nginx::types (
     mode    => '0640',
   }
 
-  file { "/etc/nginx/types.d/allmime.types":
+  file { "${base_directory}/${includes_directory}/${dirname}/allmime.types":
     owner   => $user,
     group   => $group,
     mode    => '0640',
     source  => 'puppet:///modules/nginx/mime.types',
-    require => File["${base_directory}/types.d"],
+    require => File["${base_directory}/${includes_directory}/${dirname}"],
   }
 
   if $types_configs {

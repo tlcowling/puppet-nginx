@@ -1,8 +1,8 @@
 class nginx::streams (
-
+  Optional[String] $dirname = $::nginx::config::streams_directory,
 ) inherits nginx::config {
 
-  file { '/etc/nginx/streams.d':
+  file { "${base_directory}/${dirname}":
     ensure  => 'directory',
     group   => $group,
     mode    => '0755',

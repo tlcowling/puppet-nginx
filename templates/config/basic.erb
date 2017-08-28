@@ -19,7 +19,8 @@ ssl_engine <%= @ssl_engine %>;
 <%- conf_dir = scope.lookupvar('::nginx::config::includes_directory') -%>
 include <%= conf_dir %>/http.conf;
 include <%= conf_dir %>/events.conf;
+<%- streams_dir = scope.lookupvar('::nginx::config::streams_directory') -%>
 
 stream {
-  include streams.d/*;
+  include <%= streams_dir %>/*;
 }

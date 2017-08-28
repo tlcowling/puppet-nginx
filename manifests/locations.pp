@@ -1,8 +1,8 @@
 class nginx::locations (
   Optional[Hash] $location_configs = undef,
-  Optional[String] $locations_directory = 'locations',
+  Optional[String] $dirname = 'locations',
 ) inherits nginx::config {
-  file { "${base_directory}/${includes_directory}/${locations_directory}":
+  file { "${base_directory}/${includes_directory}/${dirname}":
     ensure  => 'directory',
     owner   => $user,
     group   => $group,
