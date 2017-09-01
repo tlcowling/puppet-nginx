@@ -1,3 +1,4 @@
+server {
 <%- if @zone != "" -%>
   zone <%= @zone %>;
 <%- end -%>
@@ -16,3 +17,4 @@
   include <%= conf_dir %>/<%= acl_dir %>/<%= acl %>;
   <%- } -%>
 <%- end -%>
+}

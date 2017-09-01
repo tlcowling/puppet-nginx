@@ -1,0 +1,49 @@
+upstream <%= @name %> {
+  <%- if @resolver -%>
+  resolver <%= @resolver %>;
+  <%- end -%>
+  <%- @servers.each {|server| -%>
+  <%-   server_line = [server['address']] -%>
+  <%-   if server['options'] -%>
+  <%-     server_line << "weight=#{server['options']['weight']}" if server['options']['weight'] -%>
+  <%-     server_line << "max_conns=#{server['options']['max_conns']}" if server['options']['max_conns'] -%>
+  <%-     server_line << "max_fails=#{server['options']['max_fails']}" if server['options']['max_fails'] -%>
+  <%-     server_line << "fail_timeout=#{server['options']['fail_timeout']}" if server['options']['fail_timeout'] -%>
+  <%-     server_line << "backup" if server['options']['backup'] -%>
+  <%-     server_line << "down" if server['options']['down'] -%>
+  <%-     server_line << "resolve" if server['options']['resolve'] -%>
+  <%-     server_line << "route=#{server['options']['route']}" if server['options']['route'] -%>
+  <%-     server_line << "service=#{server['options']['service']}" if server['options']['service'] -%>
+  <%-     server_line << "slow_start=#{server['options']['slow_start']}" if server['options']['slow_start'] -%>
+  <%-   end -%>
+  server <%= server_line.join(" ") %>;
+  <%- } -%>
+  <%- if @ip_hash -%>
+  ip_hash;
+  <%- end -%>
+  <%- if @keepalive -%>
+  keepalive <%= @keepalive %>;
+  <%- end -%>
+  <%- if @hash -%>
+  hash <%= @hash %>;
+  <%- end -%>
+  <%- if @state -%>
+  state <%= @state %>;
+  <%- end -%>
+  <%- if @ntlm -%>
+  ntlm;
+  <%- end -%>
+  <%- if @least_conn -%>
+  least_conn;
+  <%- end -%>
+  <%- if @least_time -%>
+  least_time <%= @least_time %>;
+  <%- end -%>
+  <%- if @queue -%>
+  <%- queue_lines = [@queue['number']] -%>
+  <%-   if @queue['timeout'] -%>
+  <%- queue_lines << "timeout=#{@queue['timeout']}" -%> 
+  <%-   end -%>
+  queue <%= queue_lines.join(" ") %>;
+  <%- end -%>
+}

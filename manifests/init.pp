@@ -48,7 +48,8 @@ class nginx {
   include nginx::access_control_lists
   include nginx::realips
   include nginx::access_logs
-
+  include nginx::upstreams
+  
 
   $http = lookup('http')|$key| { notice("This key is ${key}") }
   if $http {

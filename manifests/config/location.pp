@@ -102,6 +102,7 @@ define nginx::config::location (
   Optional[Variant[Integer,String]] $variables_hash_bucket_size = undef,
   Optional[Variant[Integer,String]] $variables_hash_max_size = undef,
   Optional[Array[String]] $access_control_lists = undef,
+  Optional[Array[String]] $proxies = undef,
   Optional[String] $owner = $::nginx::config::user,
   Optional[String] $group = $::nginx::config::group,
   Optional[String] $mode = $::nginx::config::mode,

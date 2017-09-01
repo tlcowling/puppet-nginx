@@ -13,6 +13,6 @@ define nginx::config::access_control_list (
     mode    => '0644',
     owner   => $owner,
     group   => $group,
-    content => template('nginx/access_control_list.erb'),
+    content => template('nginx/acl/access_control_lists.erb'),
   }
 }

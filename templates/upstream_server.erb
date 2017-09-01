@@ -1,3 +1,0 @@
-<%- address = @server.delete('address') -%>
-<%- options = @server.map{|k,v| "#{k}=#{v}" }.join(" ") -%>
-  server <%= address %> <%= options || ''%>;

@@ -60,6 +60,7 @@ class nginx::locations (
         output_buffers                => $config["output_buffers"],
         port_in_redirect              => $config["port_in_redirect"],
         postpone_output               => $config["postpone_output"],
+        proxies                       => $config["proxies"],
         read_ahead                    => $config["read_ahead"],
         recursive_error_pages         => $config["recursive_error_pages"],
         reset_timedout_connection     => $config["reset_timedout_connection"],

@@ -22,6 +22,8 @@ config:
   pcre_jit: off
 
 proxies:
+  tom02:
+    proxy_pass: http://tom001
   tom01:
     proxy_pass: http://localhost:8000
     proxy_set_header:
@@ -181,6 +183,8 @@ servers:
 # define a location blocks (for reference in a server for example)
 locations:
   tom01:
+    proxies:
+      - tom02
     ssl: hardcore
     etag: true
     uri: /test
@@ -203,27 +207,61 @@ locations:
 
 # Define upstreams that can be referred to later on
 upstreams:
-  webapp02: 
-    method: least_conn
+  tom001:
     servers: 
-      - address: localhost:12345
-        weight: 5
-        max_conns: 3
-        max_fails: 2
-        fail_timeout: 30s
-      - address: localhost:12346
-  webapp01:
-    servers:
-      - address: localhost:1552
-      - address: localhost:1551
-      - address: localhost:1550
+      - address: localhost:1234
+        options:
+          weight: 5
+          backup: true
+      - address: localhost:1235
+        options:
+          weight: 3
+      - address: unix:/tmp/backend3
+        options:
+          #commercial params:
+          # resolve: true
+          # service: http
+          # slow_start: 30s
+          max_fails: 3
+      - address: 192.168.2.1
+        options:
+          fail_timeout: 5s
+    zone: 
+      name: trump
+      size: 64k
+    resolver: 10.0.0.1
+    least_conn: true
+    # Additional Commercial nginx+ Options
+    # state: /etc/nginx/state/tom001.conf
+    # ntlm: true
+    # queue:
+    #   number: 1
+    #   timeout: 10s
 
-# Define streams and tell them which upstreams to point to
+
+
+# upstreams:
+#   webapp02: 
+#     method: least_conn
+#     servers: 
+#       - address: localhost:12345
+#         weight: 5
+#         max_conns: 3
+#         max_fails: 2
+#         fail_timeout: 30s
+#       - address: localhost:12346
+#   webapp01:
+#     servers:
+#       - address: localhost:1552
+#       - address: localhost:1551
+#       - address: localhost:1550
+
+# # Define streams and tell them which upstreams to point to
 streams:
   test_balancer:
     protocol: tcp
     port: 12345
-    upstream: webapp01
+    # upstream: webapp01
     access_control_lists:
       - allow_tcow_net
       - allow_mega_corp

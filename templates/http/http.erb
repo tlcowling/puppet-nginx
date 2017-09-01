@@ -11,3 +11,5 @@
 <%- if @merge_slashes -%>
   merge_slashes <%= @merge_slashes %>;
 <%- end -%>
+<%- conf_dir = scope.lookupvar('::nginx::config::includes_directory') -%>
+  include <%= conf_dir %>/upstreams/*;

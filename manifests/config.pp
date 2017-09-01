@@ -70,6 +70,19 @@ class nginx::config (
     ],
   }
 
+  file { "${base_directory}/${streams_directory}":
+    ensure  => 'directory',
+    group   => $group,
+    mode    => '0755',
+    recurse => true,
+    purge   => true,
+    owner   => $user,
+    require => [
+      User[$user],
+      File[$base_directory],
+    ],
+  }
+
   exec { 'config_test':
     path    => [ '/usr/local/bin', '/usr/sbin' ],
     command => "nginx -t -c ${base_directory}/nginx.conf",

@@ -1,35 +1,28 @@
 define nginx::stream::server(
-  Integer $port,
   Enum['tcp', 'udp'] $protocol = 'tcp',
-  String $upstream,
-  String $proxy_bind = '',
-  String $proxy_buffer_size = '',
-  String $zone = '',
-  Array[String] $access_control_lists = [],
+  Optional[Integer] $port = undef,
+  Optional[String] $upstream = undef,
+  Optional[String] $proxy_bind = undef,
+  Optional[String] $proxy_buffer_size = undef,
+  Optional[String] $zone = undef,
+  Optional[Array[String]] $access_control_lists = undef,
+
+  Optional[String] $owner = $::nginx::config::user,
+  Optional[String] $group = $::nginx::config::group,
+  Optional[String] $mode = $::nginx::config::mode,
+  Optional[String] $base_directory = $::nginx::config::base_directory,
+  Optional[String] $streams_directory = $::nginx::config::streams_directory,
+  Optional[String] $stream_servers_directory = $::nginx::streams::dirname,
+  Optional[Array[String]] $custom = undef,
 ) {
 
-  $streams_config_dir = "/etc/nginx/streams.d/server_${name}.conf"
-
-  concat { $streams_config_dir:
+  notice("Test This pl ${base_directory}/${streams_directory}/${stream_servers_directory}/${name}.conf")
+  file { "${name} upstream server":
     ensure  => present,
-  }
-
-  concat::fragment { "${name} server_block_top}":
-    target  => $streams_config_dir,
-    content => template('nginx/server_block_top.erb'),
-    order   => '01',
-  }
-
-  concat::fragment { "${name} server":
-    target  => $streams_config_dir,
-    content => template('nginx/server.erb'),
-    order   => '02',
-  }
-
-  concat::fragment { "${name} server_block_bottom}":
-    target  => $streams_config_dir,
-    content => "}\n",
-    order   => '99',
+    path    => "${base_directory}/${streams_directory}/${stream_servers_directory}/${name}.conf",
+    owner   => $owner,
+    group   => $group,
+    mode    => $mode,
+    content => template('nginx/stream/server.erb'),
   }
 }
-

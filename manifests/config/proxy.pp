@@ -181,13 +181,13 @@ define nginx::config::proxy(
     mode    => $mode,
   }
 
-  concat::fragment { "proxy_config_basic":
+  concat::fragment { "proxy_config_basic_${name}":
     target  => "Proxy ${name}",
     order   => '00',
     content => template('nginx/proxies/proxy.erb'),
   }
 
-  concat::fragment { "proxy_config_custom":
+  concat::fragment { "proxy_config_custom_${name}":
     target  => "Proxy ${name}",
     order   => '01',
     content => template('nginx/shared/custom.erb'),

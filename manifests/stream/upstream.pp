@@ -1,7 +1,24 @@
 define nginx::stream::upstream (
-  Enum['round-robin', 'least_conn', 'hash'] $method = 'round-robin',
-  String                                    $method_attribute = '',
-  Array[Hash[Enum['address','max_conns','max_fails','weight','fail_timeout','backup','down'],Variant[String,Integer]]] $servers = [],
+  Enum[
+    'round-robin',
+    'least_conn',
+    'hash'
+  ] $method = 'round-robin',
+  String $method_attribute = '',
+  Array[
+    Hash[
+      Enum[
+      'address',
+      'max_conns',
+      'max_fails',
+      'weight',
+      'fail_timeout',
+      'backup',
+      'down'
+    ],
+    Variant[String,Integer]
+    ]
+  ] $servers = [],
 ) {
 
   $streams_config_dir = "/etc/nginx/streams.d/upstream_${name}.conf"
